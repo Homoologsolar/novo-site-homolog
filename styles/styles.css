@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+:root {
+    --neutral-100: #F2F2F2;
+    --neutral-200: #E0E0E0; 
+    --neutral-300: #BDBDBD; 
+    --neutral-400: #757575; 
+    --neutral-500: #33333; 
+    --blue-light: #A8B5E8;
+    --blue-bright: #5C75D3;
+    --blue-base: #4960A6;
+    --blue-darker: #2C3A64;
+    --yellow-base: #F2B441;
+    --yellow-dark: #E6A637;
+    --yellow-darker: #C88A25;
+    --ochre-base: #A16F1E;
+    --ochre-dark: #7A5517;
+    --success: #388E3C;
+    --error: #D32F2F;
+    --warning: #F2B441;
+}   
+
+.btn-warning{
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
+    color: var(--neutral-100);
+    background-color: var(--yellow-base) !important;
+    border: none;
+    border-radius: 32px;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+body{
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--neutral-500);
+    background-color: var(--neutral-100);
+    margin: 0;
+    padding: 0; 
+}
+span {
+    font-family: 'Ubuntu', sans-serif;  
+    font-weight: bolder;
+}
+
+body {
+    overflow-x: hidden;
+}
+#whatsapp-float {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+#whatsapp-float .wa-tooltip {
+    background: #25d366;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 16px 16px 0 16px;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: opacity 0.4s, transform 0.4s;
+}
+
+#whatsapp-float .wa-tooltip.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+#whatsapp-float .wa-btn {
+    background: #25d366;
+    color: #fff;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s;
+    animation: wa-bounce 2s infinite;
+}
+
+#whatsapp-float .wa-btn:hover {
+    transform: scale(1.08);
+}
+
+@keyframes wa-bounce {
+    0%, 100% { transform: translateY(0);}
+    10% { transform: translateY(-6px);}
+    20% { transform: translateY(0);}
+}
+html {
+    scroll-behavior: smooth;
+    }
+    /* Animação 3D de surgimento moderna */
+    main > div, main > section {
+    opacity: 0;
+    transform: perspective(900px) translateY(70px) rotateX(18deg) scale(0.97);
+    filter: blur(8px);
+    transition: 
+        opacity 0.9s cubic-bezier(.4,0,.2,1),
+        transform 0.9s cubic-bezier(.4,0,.2,1),
+        filter 0.7s cubic-bezier(.4,0,.2,1);
+    will-change: opacity, transform, filter;
+    }
+    main > div.show-3d, main > section.show-3d {
+    opacity: 1;
+    transform: perspective(900px) translateY(0) rotateX(0) scale(1);
+    filter: blur(0);
+    }
+    .accordion .accordion-collapse {
+    transition: height 0.45s cubic-bezier(.4,0,.2,1), opacity 0.45s cubic-bezier(.4,0,.2,1);
+    overflow: hidden;
+}
+.accordion .accordion-collapse.collapsing,
+.accordion .accordion-collapse.collapse {
+    opacity: 0;
+}
+.accordion .accordion-collapse.show {
+    opacity: 1;
+}
+
+.btn {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: 
+        transform 0.22s cubic-bezier(.4,0,.2,1), 
+        box-shadow 0.22s cubic-bezier(.4,0,.2,1), 
+        background 0.22s cubic-bezier(.4,0,.2,1),
+        color 0.22s cubic-bezier(.4,0,.2,1);
+    will-change: transform, box-shadow, background, color;
+    box-shadow: 0 2px 8px rgba(33, 150, 83, 0.08);
+}
+.btn::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, var(--yellow-dark) 60%, var(--yellow-base) 100%);
+    opacity: 0.5;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s cubic-bezier(.4,0,.2,1), height 0.4s cubic-bezier(.4,0,.2,1), opacity 0.4s;
+    z-index: -1;
+    border-radius: 50%;
+}
+.btn:hover::before, .btn:focus::before {
+    width: 250%;
+    height: 250%;
+    opacity: 1;
+}
+.btn:hover, .btn:focus {
+    transform: translateY(-4px) scale(1.06) rotate(-1.5deg);
+    box-shadow: 0 12px 32px rgba(33, 150, 83, 0.18), 0 2px 8px rgba(0,0,0,0.10);
+    color: #222;
+    background: linear-gradient(90deg, var(--yellow-dark) 0%, var(--yellow-base) 100%);
+    outline: none;
+}
+.btn:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 8px rgba(33, 150, 83, 0.09);
+}
+.btn:focus-visible {
+    outline: 2px solid var(--yellow-base);
+    outline-offset: 2px;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1050;
+    background: var(--blue-light);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+#form{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: var(--blue-base);
+    border-radius: 32px;
+    color: var(--neutral-100);
+    label span{
+        font-weight: 100;
+        font-style: italic;
+    }
+}
+h1 {
+    font-family: 'Ubuntu', sans-serif   !important;
+    font-weight: bolder !important;
+    color: var(--blue-darker) !important;
+    font-size: 5rem !important;
+    span {
+        color: var(--yellow-base) !important;
+    }
+}
+
+#hero {
+    position: relative;
+    p{
+        font-size: 1.2rem;
+        color: var(--blue-darker);
+        margin:0;
+    }
+    .lead{
+        font-size: 2.4rem;
+        color: var(--blue-darker);
+    }
+}
+#hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('/src/imagens/usinasolar.png') center/cover no-repeat;
+    opacity: 0.15;
+    z-index: 0;
+    pointer-events: none;
+}
+#hero > * {
+    position: relative;
+    z-index: 1;
+}
+
+#beneficios, #processo, #depoimentos, #FAQ {
+ 
+        margin-bottom: 100px !important;
+
+}
+@media (max-width: 1380px) {
+    #hero #mascote{
+        display: none !important;
+    }
+}
