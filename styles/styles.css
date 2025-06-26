@@ -504,6 +504,20 @@ main > .row {
         outline: none;
         box-shadow: none;
     }
+    #status{
+        border: none !important; /* Remove a borda do card de status */
+        max-width: 100% !important; /* Garante que o card ocupe toda a largura disponível */
+        display: flex;
+        flex-direction: row !important; /* Exibe os cards de status em linha */
+        justify-content: space-between !important; /* Espaça os cards uniformemente */
+        gap: 20px; /* Espaçamento entre os cards */ 
+        width: 100% !important; /* Garante que o card ocupe toda a largura disponível */
+        div{
+            width: 100% !important; /* Garante que cada card ocupe toda a largura disponível */
+            margin: 0 !important; /* Remove margens para evitar quebra de layout */
+            margin-top: 20px !important; /* Remove margens para evitar quebra de layout */
+        }
+    }
     /* Seção Herói */
     #hero {
         /* Empilha o texto e o formulário */
