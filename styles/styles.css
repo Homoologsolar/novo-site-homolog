@@ -511,6 +511,9 @@ footer {
 /* Telas de Tablets em modo Retrato
 -------------------------------------------------------------------------- */
 @media (max-width: 992px) {
+     body{
+        overflow: hidden;
+    }
     /* Seção Herói */
     #hero {
         /* Empilha o texto e o formulário */
@@ -585,6 +588,9 @@ footer {
 /* Telas de Celulares
 -------------------------------------------------------------------------- */
 @media (max-width: 768px) {
+     body{
+        overflow: hidden;
+    }
     /* Ajustes gerais de espaçamento */
     #beneficios, #processo, #depoimentos, #FAQ, #novocenario, #estados {
         margin-bottom: 60px !important;
@@ -632,6 +638,9 @@ footer {
 /* Telas de Celulares Pequenos
 -------------------------------------------------------------------------- */
 @media (max-width: 576px) {
+     body{
+        overflow: hidden;
+    }
     body {
         font-size: 15px;
     }
