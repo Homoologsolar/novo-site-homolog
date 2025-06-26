@@ -1,36 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+/* --- Variáveis Globais --- */
 :root {
     --neutral-100: #F2F2F2;
-    --neutral-200: #E0E0E0; 
-    --neutral-300: #BDBDBD; 
-    --neutral-400: #757575; 
     --neutral-500: #33333; 
     --blue-light: #A8B5E8;
-    --blue-bright: #5C75D3;
     --blue-base: #4960A6;
     --blue-darker: #2C3A64;
     --yellow-base: #F2B441;
     --yellow-dark: #E6A637;
     --yellow-darker: #C88A25;
-    --ochre-base: #A16F1E;
-    --ochre-dark: #7A5517;
-    --success: #388E3C;
-    --error: #D32F2F;
     --warning: #F2B441;
 }   
 
-.btn-warning{
-    font-family: 'Ubuntu', sans-serif;
-    font-weight: 500;
-    color: var(--neutral-100);
-    background-color: var(--yellow-base) !important;
-    border: none;
-    border-radius: 32px;
-    padding: 12px 24px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+/* --- Estilos Base --- */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
 }
-body{
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
     font-family: 'Ubuntu', sans-serif;
     font-size: 16px;
     line-height: 1.6;
@@ -39,45 +32,304 @@ body{
     margin: 0;
     padding: 0; 
 }
-span {
-    font-family: 'Ubuntu', sans-serif;  
+
+span { 
     font-weight: bolder;
     color: var(--blue-darker);
 }
 
-body {
-    overflow-x: hidden;
-}
-#whatsapp-float {
-    position: fixed;
-    bottom: 32px;
-    right: 32px;
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+/* --- Estilos de Botões --- */
+.btn {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: 
+        transform 0.22s cubic-bezier(.4,0,.2,1), 
+        box-shadow 0.22s cubic-bezier(.4,0,.2,1);
+    will-change: transform, box-shadow;
+    box-shadow: 0 2px 8px rgba(33, 150, 83, 0.08);
 }
 
+.btn-warning {
+    font-weight: 500;
+    color: var(--neutral-100);
+    background-color: var(--yellow-base) !important;
+    border: none;
+    border-radius: 32px;
+    padding: 12px 24px;
+    cursor: pointer;
+}
+
+.btn:hover, .btn:focus {
+    transform: translateY(-4px) scale(1.06) rotate(-1.5deg);
+    box-shadow: 0 12px 32px rgba(33, 150, 83, 0.18), 0 2px 8px rgba(0,0,0,0.10);
+    color: #222;
+    background: linear-gradient(90deg, var(--yellow-dark) 0%, var(--yellow-base) 100%);
+    outline: none;
+}
+
+.btn:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 8px rgba(33, 150, 83, 0.09);
+}
+
+.btn::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, var(--yellow-dark) 60%, var(--yellow-base) 100%);
+    opacity: 0.5;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s cubic-bezier(.4,0,.2,1), height 0.4s cubic-bezier(.4,0,.2,1), opacity 0.4s;
+    z-index: -1;
+    border-radius: 50%;
+}
+
+.btn:hover::before, .btn:focus::before {
+    width: 250%;
+    height: 250%;
+    opacity: 1;
+}
+
+/* --- Animações e Efeitos --- */
+main > div, main > section {
+    opacity: 0;
+    transform: perspective(900px) translateY(70px) rotateX(18deg) scale(0.97);
+    filter: blur(8px);
+    transition: 
+        opacity 0.9s cubic-bezier(.4,0,.2,1),
+        transform 0.9s cubic-bezier(.4,0,.2,1),
+        filter 0.7s cubic-bezier(.4,0,.2,1);
+    will-change: opacity, transform, filter;
+}
+
+main > div.show-3d, main > section.show-3d {
+    opacity: 1;
+    transform: perspective(900px) translateY(0) rotateX(0) scale(1);
+    filter: blur(0);
+}
+
+.boxfloat1, .boxfloat2, .boxfloat3, .boxfloat4 {
+    position: absolute;
+    border-radius: 58px;
+    z-index: -1;
+    background: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.boxfloat1 { width: 500px; height: 500px; top: 1900px; right: -250px; border: solid 33px var(--yellow-base); }
+.boxfloat2 { width: 250px; height: 250px; top: 2800px; right: -100px; border: solid 22px var(--blue-base); }
+.boxfloat3 { width: 400px; height: 400px; top: 2900px; left: -100px; border: solid 26px var(--blue-base); }
+.boxfloat4 { width: 600px; height: 600px; top: 2000px; left: -100px; border: solid 33px var(--blue-base); }
+
+
+/* Define o estado inicial do texto como invisível */
 #whatsapp-float .wa-tooltip {
     background: #25d366;
     color: #fff;
     padding: 10px 18px;
     border-radius: 16px 16px 0 16px;
     margin-bottom: 8px;
-    font-size: 1rem;
     box-shadow: 0 2px 12px rgba(0,0,0,0.12);
-    opacity: 0;
-    transform: translateY(20px);
+    
+    /* Lógica da Animação */
+    opacity: 0; /* Começa totalmente transparente */
+    transform: translateY(10px); /* Começa um pouco deslocado para baixo */
+    visibility: hidden; /* Garante que não possa ser interagido quando invisível */
     pointer-events: none;
-    transition: opacity 0.4s, transform 0.4s;
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0s 0.4s;
 }
 
+/* Define como o texto deve aparecer quando a classe '.visible' é adicionada pelo JavaScript */
 #whatsapp-float .wa-tooltip.visible {
     opacity: 1;
     transform: translateY(0);
+    visibility: visible;
     pointer-events: auto;
+    transition-delay: 0s;
+}
+/* --- Componentes Específicos --- */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1050;
+    background: var(--blue-light);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+.navbar-nav {
+    display: flex;
+    flex-direction: row; /* Alinha os itens horizontalmente */
+    align-items: center; /* Centraliza os itens verticalmente */
+    flex-wrap: nowrap;   /* CRÍTICO: Impede que os itens quebrem para a linha de baixo */
+    gap: 1.5rem;         /* Adiciona um espaço consistente entre cada item do menu */
 }
 
+/* Garante que os itens individuais do menu não encolham ou se deformem */
+.navbar-nav .nav-item {
+    flex-shrink: 0;
+}
+
+/* Garante que o texto dentro do botão "Entre Em Contato" não quebre a linha */
+.navbar-nav .btn {
+    white-space: nowrap;
+}
+#hero {
+    position: relative;
+    max-width: 100% !important; /* Força o alinhamento correto */
+}
+
+#hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('https://github.com/mosiah-andrade/novo-site-homolog/blob/main/src/imagens/usinasolar.webp?raw=true') center/cover no-repeat;
+    opacity: 0.15;
+    z-index: 0;
+    pointer-events: none;
+}
+
+#hero > * {
+    position: relative;
+    z-index: 1;
+}
+
+h1 {
+    font-weight: bolder !important;
+    color: var(--blue-darker) !important;
+    font-size: 5rem !important;
+}
+
+#hero p {
+    font-size: 1.2rem;
+    color: var(--blue-darker);
+    margin:0;
+}
+
+#hero .lead {
+    font-size: 2.4rem;
+    color: var(--blue-darker);
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: var(--blue-base);
+    border-radius: 32px;
+    color: var(--neutral-100);
+    margin-top: 50px !important;
+    margin-bottom: 50px;
+    span{
+        color: var(--yellow-base);
+    }
+}
+
+#form label span {
+    font-weight: 100;
+    font-style: italic;
+    color: var(--neutral-100);
+}
+
+#mascote {
+    position: absolute;
+    width: 450px;
+    right: 30%;
+    bottom: 0;  
+    z-index: 0;
+}
+
+#beneficios, #processo, #depoimentos, #FAQ {
+    margin-bottom: 100px !important;
+}
+
+#novocenario, #estados {
+    margin-bottom: 100px !important;
+    background: var(--blue-darker) !important;
+    padding: 50px 0;
+    color: var(--neutral-100);
+}
+
+#novocenario span, #estados span {
+    color: var(--yellow-base);
+}
+
+#novocenario h3, #estados h3 {
+    color: var(--blue-light);
+    font-weight: bolder;
+    text-align: center;
+    margin-bottom: 30px !important;
+}
+
+#novocenario p, #estados p {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 20px !important;
+}
+
+#novocenario a, #estados a {
+    font-weight: bolder;
+    width: 200px;
+    margin-bottom: 50px !important;
+}
+
+#processositens .box {
+    background-color: var(--blue-base);
+    width: 250px;
+    height: 250px;
+    padding: 25px;
+    border-radius: 8px;
+    color: var(--neutral-100);
+}
+#processositens .box p { font-size: .8rem; }
+#processositens .box p span { font-style: italic; font-weight: 100; }
+#processositens .box div i { margin-top: -20px; }
+#processositens .box div span { font-weight: bolder; font-size: 2.2rem; margin-top: -20px; }
+#processositens .box h5 { font-weight: bolder; font-size: .9rem; text-align: justify; }
+#processositens i { color: var(--yellow-base); font-size: 2.5rem; }
+
+#boxdepoimentos {
+    max-width: 1200px;
+    margin: auto;
+}
+#boxdepoimentos h2 { font-weight: bolder; color: var(--blue-darker); margin-bottom: 15px !important; }
+#boxdepoimentos p { font-size: 1.2rem; margin-bottom: 30px !important; }
+#boxdepoimentos > div { display: flex; justify-content: center !important; gap: 20px; }
+#boxdepoimentos > div > div { width: fit-content !important; }
+
+#contato {
+    background: var(--blue-light);
+    padding: 50px 0;
+    color: var(--neutral-100);
+}
+#contato h2 { font-weight: bolder; color: var(--blue-darker); margin-bottom: 15px !important; }
+#contato p { font-size: 1.2rem; color: var(--blue-darker); margin-bottom: 30px !important; }
+
+footer {
+    background: var(--blue-darker);
+    color: var(--neutral-100);
+    font-size: 0.9rem;
+}
+footer a { color: var(--yellow-base); text-decoration: none; transition: color 0.3s ease; }
+footer a:hover { color: var(--yellow-dark); }
+#social { font-size: 25px; }
+#social a:hover { color: var(--yellow-darker); transform: scale(1.1); }
+
+#status .card {
+    background-color: var(--blue-base);
+    color: var(--neutral-100);
+}
+#status .card span {
+    color: var(--neutral-100);
+}
+
+#whatsapp-float {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 9999;
+}
 #whatsapp-float .wa-btn {
     background: #25d366;
     color: #fff;
@@ -94,724 +346,129 @@ body {
     transition: transform 0.2s;
     animation: wa-bounce 2s infinite;
 }
-
-#whatsapp-float .wa-btn:hover {
-    transform: scale(1.08);
-}
-
+#whatsapp-float .wa-btn:hover { transform: scale(1.08); }
 @keyframes wa-bounce {
-    0%, 100% { transform: translateY(0);}
-    10% { transform: translateY(-6px);}
-    20% { transform: translateY(0);}
-}
-html {
-    scroll-behavior: smooth;
-    }
-    /* Animação 3D de surgimento moderna */
-    main > div, main > section {
-    opacity: 0;
-    transform: perspective(900px) translateY(70px) rotateX(18deg) scale(0.97);
-    filter: blur(8px);
-    transition: 
-        opacity 0.9s cubic-bezier(.4,0,.2,1),
-        transform 0.9s cubic-bezier(.4,0,.2,1),
-        filter 0.7s cubic-bezier(.4,0,.2,1);
-    will-change: opacity, transform, filter;
-    }
-    main > div.show-3d, main > section.show-3d {
-    opacity: 1;
-    transform: perspective(900px) translateY(0) rotateX(0) scale(1);
-    filter: blur(0);
-    }
-    .accordion .accordion-collapse {
-    transition: height 0.45s cubic-bezier(.4,0,.2,1), opacity 0.45s cubic-bezier(.4,0,.2,1);
-    overflow: hidden;
-}
-.accordion .accordion-collapse.collapsing,
-.accordion .accordion-collapse.collapse {
-    opacity: 0;
-}
-.accordion .accordion-collapse.show {
-    opacity: 1;
-}
-
-.btn {
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    transition: 
-        transform 0.22s cubic-bezier(.4,0,.2,1), 
-        box-shadow 0.22s cubic-bezier(.4,0,.2,1), 
-        background 0.22s cubic-bezier(.4,0,.2,1),
-        color 0.22s cubic-bezier(.4,0,.2,1);
-    will-change: transform, box-shadow, background, color;
-    box-shadow: 0 2px 8px rgba(33, 150, 83, 0.08);
-}
-.btn::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 0;
-    height: 0;
-    background: radial-gradient(circle, var(--yellow-dark) 60%, var(--yellow-base) 100%);
-    opacity: 0.5;
-    transform: translate(-50%, -50%);
-    transition: width 0.4s cubic-bezier(.4,0,.2,1), height 0.4s cubic-bezier(.4,0,.2,1), opacity 0.4s;
-    z-index: -1;
-    border-radius: 50%;
-}
-.btn:hover::before, .btn:focus::before {
-    width: 250%;
-    height: 250%;
-    opacity: 1;
-}
-.btn:hover, .btn:focus {
-    transform: translateY(-4px) scale(1.06) rotate(-1.5deg);
-    box-shadow: 0 12px 32px rgba(33, 150, 83, 0.18), 0 2px 8px rgba(0,0,0,0.10);
-    color: #222;
-    background: linear-gradient(90deg, var(--yellow-dark) 0%, var(--yellow-base) 100%);
-    outline: none;
-}
-.btn:active {
-    transform: scale(0.97);
-    box-shadow: 0 2px 8px rgba(33, 150, 83, 0.09);
-}
-.btn:focus-visible {
-    outline: 2px solid var(--yellow-base);
-    outline-offset: 2px;
-}
-
-header {
-    position: sticky;
-    top: 0;
-    z-index: 1050;
-    background: var(--blue-light);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-}
-#mascote{
-    margin-top: 60px;
-}
-#form{
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    background: var(--blue-base);
-    border-radius: 32px;
-    color: var(--neutral-100);
-    margin-top: 50px !important;
-    margin-bottom: 50px;
-    label span{
-        font-weight: 100;
-        font-style: italic;
-    }
-}
-h1 {
-    font-family: 'Ubuntu', sans-serif   !important;
-    font-weight: bolder !important;
-    color: var(--blue-darker) !important;
-    font-size: 5rem !important;
-    span {
-        color: var(--yellow-base) !important;
-    }
-}
-
-#hero {
-    position: relative;
-    p{
-        font-size: 1.2rem;
-        color: var(--blue-darker);
-        margin:0;
-    }
-    .lead{
-        font-size: 2.4rem;
-        color: var(--blue-darker);
-    }
-}
-#hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: url('https://github.com/mosiah-andrade/novo-site-homolog/blob/main/src/imagens/usinasolar.webp?raw=true') center/cover no-repeat;
-    opacity: 0.15;
-    z-index: 0;
-    pointer-events: none;
-}
-#hero > * {
-    position: relative;
-    z-index: 1;
-}
-
-#beneficios, #processo, #depoimentos, #FAQ {
- 
-        margin-bottom: 100px !important;
-
-}
-.boxfloat1{
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    top: 1900px;
-    right: -250px;
-    border: solid 33px var(--yellow-base) ;
-    z-index: -1;
-    background: none;
-    border-radius: 58px;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-.boxfloat2{
-    position: absolute;
-    width: 250px;
-    height: 250px;
-    top: 2800px;
-    right: -100px;
-    border: solid 22px var(--blue-base) ;
-    z-index: -1;
-    background: none;
-    border-radius: 58px;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-.boxfloat3{
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    top: 2900px;
-    left: -100px;
-    border: solid 26px var(--blue-base) ;
-    z-index: -1;
-    background: none;
-    border-radius: 58px;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-.boxfloat4{
-    position: absolute;
-    width: 600px;
-    height: 600px;
-    top: 2000px;
-    left: -100px;
-    border: solid 33px var(--blue-base) ;
-    z-index: -1;
-    background: none;
-    border-radius: 58px;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-#novocenario, #estados{
-    margin-bottom: 100px !important;
-    background: var(--blue-darker) !important;
-    padding: 50px 0;
-    color: var(--neutral-100);
-    span{
-        color: var(--yellow-base);
-    }
-    h3 {
-        color: var(--blue-light);
-        font-weight: bolder;
-        text-align: center;
-        margin-bottom: 30px !important;
-        span{
-            color: var(--yellow-base);
-        }
-    }
-    p{
-        font-size: 1.2rem;
-        text-align: center;
-        margin-bottom: 20px !important;
-    }
-    a{
-        font-weight: bolder;
-        width: 200px;
-        margin-bottom: 50px !important;
-    }
-}
-
-#processositens{
-    .box{
-        background-color: var(--blue-base);
-        width: 250px;
-        height: 250px;
-        padding: 25px;
-        border-radius: 8px;
-        p{
-            color: var(--neutral-100);
-            font-size: .8rem;
-            span{
-                font-style: italic;
-                color: var(--neutral-100);
-                font-weight: 100;
-            }
-        }
-        div i{
-            margin-top: -20px;
-        }
-        div span{
-            font-weight: bolder;
-            color: var(--neutral-100);
-            font-size: 2.2rem;
-            margin-top: -20px;
-        }
-        h5{
-            color: var(--neutral-100);
-            font-weight: bolder;
-            font-size: .9rem;
-            text-align: justify;
-        }
-    }
-    i {
-        color: var(--yellow-base);
-        font-size: 2.5rem;
-    }
-}
-#estados{
-    margin-top: 50px !important;
-    h2, p{
-        max-width: 90%;
-    }
-}
-#boxdepoimentos{
-    max-width: 1200px;
-    margin: auto;
-    h2{
-        font-weight: bolder;
-        color: var(--blue-darker);
-        margin-bottom: 15px !important;
-    }
-    p{
-        font-size: 1.2rem;
-        margin-bottom: 30px !important;
-    }
-    div{
-        display: flex;
-        justify-content: center !important;
-        gap: 20px;
-        div{
-            width: fit-content !important;
-        }
-    }
-}
-#contato{
-    background: var(--blue-light);
-    padding: 50px 0;
-    color: var(--neutral-100);
-    h2{
-        font-weight: bolder;
-        color: var(--blue-darker);
-        margin-bottom: 15px !important;
-    }
-    p{
-        font-size: 1.2rem;
-        color: var(--blue-darker);
-        margin-bottom: 30px !important;
-    }
-}
-footer {
-    background: var(--blue-darker);
-    color: var(--neutral-100);
-    font-size: 0.9rem;
-    a {
-        color: var(--yellow-base);
-        text-decoration: none;
-        transition: color 0.3s ease;
-    }
-    a:hover {
-        color: var(--yellow-dark);
-    }
-    #social{
-        font-size: 25px;
-        display: flex;
-        width: 50%;
-        justify-content: space-between!important;
-        a:hover{
-            color: var(--yellow-darker);
-            transform: scale(1.1);
-        }
-    }
-}
-
-#status .card{
-    background-color: var(--blue-base);
-    color: var(--neutral-100);
-    span{
-        font-weight: bolder;
-        color: var(--neutral-100);
-    }
-}
-
-#logobox{ 
-    width: fit-content !important; 
-}
-
-@media (max-width: 1380px) {
-    #hero #mascote{
-        display: none !important;
-    }
-}
-html, body {
-    overflow-x: hidden;
-    width: 100%;
-}
-main > .row {
-    margin-left: 0;
-    margin-right: 0;
-}
-#whatsapp-float {
-    position: fixed;
-    right: 20px; /* Garante a posição correta em telas menores */
-    bottom: 20px;
-}
-#hero {
-    max-width: 100% !important;
+    0%, 100% { transform: translateY(0); }
+    10% { transform: translateY(-6px); }
+    20% { transform: translateY(0); }
 }
 
 /* ==========================================================================
-   CSS RESPONSIVO - HOMOLOG SOLAR (VERSÃO CORRIGIDA)
+   CSS RESPONSIVO OTIMIZADO
    ========================================================================== */
 
-/* Telas de Desktops Menores e Tablets em modo Paisagem
--------------------------------------------------------------------------- */
+/* --- Tablets e Desktops Menores --- */
 @media (max-width: 1200px) {
-    /* Esconde os elementos decorativos que podem quebrar o layout */
     .boxfloat1, .boxfloat2, .boxfloat3, .boxfloat4, #mascote {
         display: none;
     }
-
-    /* * CORREÇÃO IMPORTANTE:
-     * Remove o padding horizontal gigante do cabeçalho que estava no HTML.
-     * Esta é a forma correta de ajustar o cabeçalho, em vez de usar margens negativas.
-     */
     header {
         padding: 0 30px !important;
     }
 }
 
-/* Telas de Tablets em modo Retrato
--------------------------------------------------------------------------- */
-@media (max-width: 992px) {
-    #mascote {
-        display: none !important; /* Esconde o mascote em telas menores */
-    }
-    #estados{
-        margin-top: 50px !important;
-        h2, p{
-        width: 90%;
-        }
-    }   
+/* --- Menu Mobile e Tablets em Retrato --- */
+@media (max-width: 991.98px) {
+    /* Layout do Menu */
+    .navbar { position: relative; }
+    .navbar-toggler { border: none; outline: none; box-shadow: none; }
     .navbar > .container-fluid {
         display: flex !important;
-        justify-content: space-between !important; /* CRÍTICO: Logo na esquerda, botão na direita */
-        align-items: center !important; /* Alinha tudo verticalmente no centro */
-        flex-wrap: nowrap !important; /* Impede que o botão caia para a linha de baixo */
-        padding: 0 1rem; /* Adiciona um respiro nas laterais */
-    }
-    .navbar-brand-group {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem; /* Cria um pequeno espaço entre o logo e o texto */
-    }
-    .navbar-brand {
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-    .navbar-toggler {
-        position: static;
-        border: none;
-        outline: none;
-        box-shadow: none;
-    }
-    .navbar {
-        position: relative;
-    }
-    .navbar-collapse.collapse.show,
-    .navbar-collapse.collapsing {
-        position: absolute;
-        top: 100%; /* Posiciona o menu exatamente abaixo da barra de navegação */
-        left: 0;   /* Alinha o menu com o lado esquerdo da barra */
-        width: 100%; /* Faz o menu ter a mesma largura da barra */
-        
-        /* Estilos visuais para o painel */
-        background-color: var(--neutral-100); /* Cor de fundo para que não seja transparente */
-        padding: 1rem;
-        border-radius: 0 0 12px 12px; /* Cantos arredondados na parte de baixo */
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Sombra para dar profundidade */
-        z-index: 1000; /* Garante que o menu fique acima do conteúdo da página */
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 0 1rem;
     }
 
-    /* 3. Organiza a lista de links dentro do novo painel dropdown */
-    .navbar-collapse .navbar-nav {
-        align-items: flex-start; /* Alinha os itens à esquerda */
-        width: 100%;
-    }
-
-    /* 4. Garante que cada item do menu ocupe toda a largura */
-    .navbar-collapse .navbar-nav .nav-item {
-        width: 100%;
-        margin-bottom: 0.5rem;
-    }
-
-    .navbar-collapse .navbar-nav .nav-item:last-child {
-        margin-bottom: 0;
-    }
-
-    /* 5. Ajusta o botão "Entre em Contato" para o novo layout */
-    .navbar-collapse .navbar-nav .btn {
-        width: 100%;
-        text-align: center;
-        margin-top: 0.5rem;
-    }
-     /* 1. Prepara o container para o posicionamento do menu */
-    .navbar {
-        position: relative;
-    }
-
-    /* 2. Animação do PAINEL do menu (o container)
-       Faz o painel surgir com um leve fade e scale.
-    */
+    /* Animação do Menu */
     .navbar-collapse {
         position: absolute;
         top: 100%;
         left: 0;
         width: 100%;
         z-index: 1000;
-        
-        /* Estilos visuais */
         background-color: var(--neutral-100);
         padding: 1rem;
         border-radius: 0 0 12px 12px;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-        
-        /* Propriedades da animação */
+        box-shadow: 0 8px 16px rgba(0,0,0,0.15);
         opacity: 0;
-        transform: translateY(-10px); /* Começa um pouco acima */
+        transform: translateY(-10px);
         visibility: hidden;
         transition: opacity 0.2s ease-out, transform 0.2s ease-out, visibility 0s 0.2s;
     }
-
     .navbar-collapse.show {
         opacity: 1;
         transform: translateY(0);
         visibility: visible;
         transition: opacity 0.2s ease-out, transform 0.2s ease-out;
     }
-
-    /* 3. Prepara os ITENS INDIVIDUAIS do menu para a animação
-       Eles começam transparentes e um pouco acima de sua posição final.
-    */
     .navbar-collapse .nav-item {
+        width: 100%;
+        margin-bottom: 0.5rem;
         opacity: 0;
         transform: translateX(-20px);
         transition: opacity 0.3s ease-out, transform 0.3s ease-out;
     }
-
-    /* 4. Ativa a animação EM CASCATA quando o menu está aberto
-       Aplicamos a animação e um atraso diferente para cada item.
-    */
     .navbar-collapse.show .nav-item {
         opacity: 1;
         transform: translateX(0);
     }
-
-    /* Atrasos para o efeito cascata */
     .navbar-collapse.show .nav-item:nth-child(1) { transition-delay: 0.10s; }
     .navbar-collapse.show .nav-item:nth-child(2) { transition-delay: 0.15s; }
     .navbar-collapse.show .nav-item:nth-child(3) { transition-delay: 0.20s; }
     .navbar-collapse.show .nav-item:nth-child(4) { transition-delay: 0.25s; }
     .navbar-collapse.show .nav-item:nth-child(5) { transition-delay: 0.30s; }
-    .navbar-collapse.show .nav-item:nth-child(6) { transition-delay: 0.35s; } /* Para o botão de contato */
+    .navbar-collapse.show .nav-item:nth-child(6) { transition-delay: 0.35s; }
 
-    /* [Estilos de layout que devem ser mantidos] */
-    .navbar-collapse .navbar-nav {
-        align-items: flex-start;
-        width: 100%;
-    }
-    .navbar-collapse .navbar-nav .nav-item {
-        width: 100%;
-        margin-bottom: 0.5rem;
-    }
-    .navbar-collapse .navbar-nav .btn {
-        width: 100%;
-        text-align: center;
-        margin-top: 0.5rem;
-    }
-    #status{
-        border: none !important; /* Remove a borda do card de status */
-        max-width: 100% !important; /* Garante que o card ocupe toda a largura disponível */
-        display: flex;
-        flex-direction: row !important; /* Exibe os cards de status em linha */
-        justify-content: space-between !important; /* Espaça os cards uniformemente */
-        gap: 20px; /* Espaçamento entre os cards */ 
-        width: 100% !important; /* Garante que o card ocupe toda a largura disponível */
-        div{
-            width: 100% !important; /* Garante que cada card ocupe toda a largura disponível */
-            margin: 0 !important; /* Remove margens para evitar quebra de layout */
-            margin-top: 20px !important; /* Remove margens para evitar quebra de layout */
-        }
-    }
-    /* Seção Herói */
-    #hero {
-        /* Empilha o texto e o formulário */
-        flex-direction: column;
-        text-align: center;
-        padding-top: 40px;
-    }
+    /* Layout Geral Tablet */
+    #hero { flex-direction: column; text-align: center; padding-top: 40px; }
+    #hero .container { padding: 0 20px; }
+    #hero h1 { font-size: 3.5rem !important; }
+    #hero .lead { font-size: 1.8rem; }
+    #form { margin: 40px auto !important; width: 90%; max-width: 450px; }
+    #boxbeneficios .row, #concessionarias { flex-direction: column; }
+    #boxbeneficios .col-md-6 { width: 100%; max-width: 500px; margin: 0 auto; }
+    #concessionarias > div:last-child { border: none; padding-bottom: 20px; margin-bottom: 30px; }
+    #status { flex-direction: row !important; gap: 20px; }
+    #processositens { flex-direction: column; gap: 20px; }
+    #processositens .bi-arrow-right { display: none; }
+    footer .d-flex { flex-direction: column; text-align: center; }
+    footer #social { justify-content: center !important; width: 100% !important; gap: 20px; }
+}
 
-    #hero .container {
-        max-width: 100%;
-        padding: 0 20px;
-    }
 
-    #hero h1 {
-        font-size: 3.5rem !important; /* Reduz drasticamente o título */
-    }
-
-    #hero .lead {
-        font-size: 1.8rem;
-    }
-
-    #form {
-        margin: 40px auto !important;
-        width: 90%;
-        max-width: 450px;
-    }
-
-    /* Seção Benefícios (texto e imagem) */
-    #boxbeneficios .row, #concessionarias {
-        flex-direction: column;
-    }
-    
-    #boxbeneficios .col-md-6 {
-        width: 100%;
-        max-width: 500px;
-        margin: 0 auto;
-    }
-
-    /* Seção Concessionárias */
-    #concessionarias > div:last-child {
-        border-right: none;
-        border-bottom: 1px solid #ccc;
-        padding-bottom: 20px;
-        margin-bottom: 30px;
-    }
-
-    /* Seção Processo */
-    #processositens {
-        flex-direction: column;
-        gap: 20px;
-    }
-    #processositens .bi-arrow-right {
-        display: none; /* Esconde as setas horizontais */
-    }
-
-    /* Rodapé */
+/* --- Celulares Maiores --- */
+@media (max-width: 768px) {
     footer .d-flex {
         flex-direction: column;
-        text-align: center;
+        text-align: center; 
+        gap: 1.5rem;      
+        p{
+            margin: auto;
+            width: 100%;
+            max-width: none !important;
+        }
     }
-    footer #social {
-        justify-content: center !important;
-        width: 100% !important;
-        gap: 20px;
-    }
+
+    #beneficios, #processo, #depoimentos, #FAQ, #novocenario, #estados { margin-bottom: 60px !important; }
+    header { padding: 0 20px !important; }
+    h1, h2, h3 { text-align: center; }
+    #hero h1 { font-size: 3rem !important; }
+    #hero .lead { font-size: 1.5rem; }
+    #hero p { font-size: 1rem; }
+    #depoimentoUm img { width: 100%; height: auto; }
+    #boxdepoimentos .row { flex-direction: column; align-items: center; }
+    #boxdepoimentos img { width: 100%; max-width: 383px; height: auto; }
+    #processositens .box { width: 90%; max-width: 300px; height: auto; }
 }
 
-/* Telas de Celulares
--------------------------------------------------------------------------- */
-@media (max-width: 768px) {
-    /* Ajustes gerais de espaçamento */
-    #beneficios, #processo, #depoimentos, #FAQ, #novocenario, #estados {
-        margin-bottom: 60px !important;
-    }
-
-    header {
-        padding: 0 20px !important; /* Menor padding no cabeçalho */
-    }
-
-    /* Tipografia geral */
-    h1, h2, h3 {
-        text-align: center;
-    }
-
-    #hero h1 {
-        font-size: 3rem !important;
-    }
-    
-    #hero .lead {
-        font-size: 1.5rem;
-    }
-
-    #hero p {
-        font-size: 1rem;
-    }
-
-    #depoimentoUm img {
-        width: 100%;
-        height: auto;
-    }
-
-    /* Ajusta o layout dos depoimentos */
-    #boxdepoimentos .row {
-        flex-direction: column;
-        align-items: center;
-    }
-    #boxdepoimentos img {
-        width: 100%;
-        max-width: 383px; /* Mantém um tamanho máximo razoável */
-        height: auto;
-    }
-
-    /* Seção Processo */
-    #processositens .box {
-        width: 90%;
-        max-width: 300px;
-        height: auto; /* Altura automática para o conteúdo caber */
-    }
-}
-
-
-/* Telas de Celulares Pequenos
--------------------------------------------------------------------------- */
+/* --- Celulares Pequenos --- */
 @media (max-width: 576px) {
-    body {
-        font-size: 15px;
-    }
-
-    #grid {
-       display: flex;
-       flex-wrap: wrap;
-       justify-content: center;
-    }
-    #hero h1 {
-        font-size: 2.5rem !important;
-    }
-
-    #hero .lead {
-        font-size: 1.3rem;
-    }
-
-    #form button {
-        width: 100%; /* Botão do formulário ocupa a largura toda */
-    }
-
-    #whatsapp-float .wa-btn {
-        width: 56px; /* Botão do WhatsApp um pouco menor */
-        height: 56px;
-        font-size: 1.8rem;
-    }
-    
-    #whatsapp-float {
-        bottom: 20px;
-        right: 20px;
-    }
-
-    /* Garante que imagens de estados e concessionárias se ajustem bem */
-    #grid .card, #estados .col-md-2 {
-        width: calc(50% - 10px) !important; /* Duas colunas */
-    }
-    
-    #grid, #estados .row {
-        gap: 10px;
-    }
+    body { font-size: 15px; }
+    #hero h1 { font-size: 2.5rem !important; }
+    #hero .lead { font-size: 1.3rem; }
+    #form button { width: 100%; }
+    #whatsapp-float { right: 20px; bottom: 20px; }
+    #whatsapp-float .wa-btn { width: 56px; height: 56px; font-size: 1.8rem; }
+    #grid .card, #estados .col-md-2 { width: calc(50% - 10px) !important; }
+    #grid, #estados .row { gap: 10px; }
 }
