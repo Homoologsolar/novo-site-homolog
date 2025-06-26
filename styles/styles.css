@@ -491,7 +491,9 @@ main > .row {
 /* Telas de Tablets em modo Retrato
 -------------------------------------------------------------------------- */
 @media (max-width: 992px) {
-
+    #mascote {
+        display: none !important; /* Esconde o mascote em telas menores */
+    }
     #estados{
         margin-top: 50px !important;
         h2, p{
