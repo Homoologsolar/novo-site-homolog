@@ -24,13 +24,13 @@ html {
 }
 
 body {
+    padding-top: 70px;
     font-family: 'Ubuntu', sans-serif;
     font-size: 16px;
     line-height: 1.6;
     color: var(--neutral-500);
     background-color: var(--neutral-100);
     margin: 0;
-    padding: 0; 
 }
 
 span { 
@@ -152,9 +152,7 @@ main > div.show-3d, main > section.show-3d {
 }
 /* --- Componentes Específicos --- */
 header {
-    position: sticky;
-    top: 0;
-    z-index: 1050;
+    padding: 0 200px; 
     background: var(--blue-light);
     box-shadow: 0 2px 12px rgba(0,0,0,0.04);
 }
@@ -281,6 +279,9 @@ h1 {
     padding: 25px;
     border-radius: 8px;
     color: var(--neutral-100);
+    span{
+        color: var(--neutral-100);
+    }
 }
 #processositens .box p { font-size: .8rem; }
 #processositens .box p span { font-style: italic; font-weight: 100; }
