@@ -444,7 +444,7 @@ footer {
 #logobox{ 
     width: fit-content !important; 
 }
-}
+
 @media (max-width: 1380px) {
     #hero #mascote{
         display: none !important;
@@ -475,7 +475,7 @@ main > .row {
 -------------------------------------------------------------------------- */
 @media (max-width: 1200px) {
     /* Esconde os elementos decorativos que podem quebrar o layout */
-    .boxfloat1, .boxfloat2, .boxfloat3, .boxfloat4 {
+    .boxfloat1, .boxfloat2, .boxfloat3, .boxfloat4, #mascote {
         display: none;
     }
 
