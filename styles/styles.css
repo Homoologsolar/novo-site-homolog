@@ -42,6 +42,7 @@ body{
 span {
     font-family: 'Ubuntu', sans-serif;  
     font-weight: bolder;
+    color: var(--blue-darker);
 }
 
 body {
@@ -188,7 +189,9 @@ header {
     background: var(--blue-light);
     box-shadow: 0 2px 12px rgba(0,0,0,0.04);
 }
-
+#mascote{
+    margin-top: 60px;
+}
 #form{
     display: flex;
     flex-direction: column;
@@ -196,6 +199,8 @@ header {
     background: var(--blue-base);
     border-radius: 32px;
     color: var(--neutral-100);
+    margin-top: 50px !important;
+    margin-bottom: 50px;
     label span{
         font-weight: 100;
         font-style: italic;
@@ -242,6 +247,188 @@ h1 {
         margin-bottom: 100px !important;
 
 }
+.boxfloat1{
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    top: 1900px;
+    right: -250px;
+    border: solid 33px var(--yellow-base) ;
+    z-index: -1;
+    background: none;
+    border-radius: 58px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.boxfloat2{
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    top: 2800px;
+    right: -100px;
+    border: solid 22px var(--blue-base) ;
+    z-index: -1;
+    background: none;
+    border-radius: 58px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.boxfloat3{
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    top: 2900px;
+    left: -100px;
+    border: solid 26px var(--blue-base) ;
+    z-index: -1;
+    background: none;
+    border-radius: 58px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.boxfloat4{
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    top: 2000px;
+    left: -100px;
+    border: solid 33px var(--blue-base) ;
+    z-index: -1;
+    background: none;
+    border-radius: 58px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+#novocenario, #estados{
+    margin-bottom: 100px !important;
+    background: var(--blue-darker) !important;
+    padding: 50px 0;
+    color: var(--neutral-100);
+    span{
+        color: var(--yellow-base);
+    }
+    h3 {
+        color: var(--blue-light);
+        font-weight: bolder;
+        text-align: center;
+        margin-bottom: 30px !important;
+        span{
+            color: var(--yellow-base);
+        }
+    }
+    p{
+        font-size: 1.2rem;
+        text-align: center;
+        margin-bottom: 20px !important;
+    }
+    a{
+        font-weight: bolder;
+        width: 200px;
+        margin-bottom: 50px !important;
+    }
+}
+
+#processositens{
+    .box{
+        background-color: var(--blue-base);
+        width: 250px;
+        height: 250px;
+        padding: 25px;
+        border-radius: 8px;
+        p{
+            color: var(--neutral-100);
+            font-size: .8rem;
+            span{
+                font-style: italic;
+                color: var(--neutral-100);
+                font-weight: 100;
+            }
+        }
+        div i{
+            margin-top: -20px;
+        }
+        div span{
+            font-weight: bolder;
+            color: var(--neutral-100);
+            font-size: 2.2rem;
+            margin-top: -20px;
+        }
+        h5{
+            color: var(--neutral-100);
+            font-weight: bolder;
+            font-size: .9rem;
+            text-align: justify;
+        }
+    }
+    i {
+        color: var(--yellow-base);
+        font-size: 2.5rem;
+    }
+}
+#estados{
+    margin-top: 50px !important;
+}
+#boxdepoimentos{
+    max-width: 1200px;
+    margin: auto;
+    h2{
+        font-weight: bolder;
+        color: var(--blue-darker);
+        margin-bottom: 15px !important;
+    }
+    p{
+        font-size: 1.2rem;
+        margin-bottom: 30px !important;
+    }
+    div{
+        display: flex;
+        justify-content: center !important;
+        gap: 20px;
+        div{
+            width: fit-content !important;
+        }
+    }
+}
+#contato{
+    background: var(--blue-light);
+    padding: 50px 0;
+    color: var(--neutral-100);
+    h2{
+        font-weight: bolder;
+        color: var(--blue-darker);
+        margin-bottom: 15px !important;
+    }
+    p{
+        font-size: 1.2rem;
+        color: var(--blue-darker);
+        margin-bottom: 30px !important;
+    }
+}
+footer {
+    background: var(--blue-darker);
+    color: var(--neutral-100);
+    font-size: 0.9rem;
+    a {
+        color: var(--yellow-base);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    a:hover {
+        color: var(--yellow-dark);
+    }
+    #social{
+        font-size: 25px;
+        display: flex;
+        width: 50%;
+        justify-content: space-between!important;
+        a:hover{
+            color: var(--yellow-darker);
+            transform: scale(1.1);
+        }
+    }
+}
+
 @media (max-width: 1380px) {
     #hero #mascote{
         display: none !important;
