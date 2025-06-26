@@ -457,13 +457,13 @@ footer {
     }
 
     /* Ajusta o padding do cabeçalho para telas menores */
+    body{
+        overflow: hidden;
+    }
     header {
-        body{
-            overflow: hidden;
-        }
         margin-left:-200px ;
         div{
-            width: 100px;
+            width: 100px !important;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -472,6 +472,16 @@ footer {
             position: absolute;
             right: -160px;
             top: 25%;
+        }
+        nav div{
+            max-width: 100% !important;
+            width: 100% !important;
+            display: flex;
+            justify-content: space-between;
+            align-items: center ;
+        }
+        .btn{
+            width: 80vw !important;
         }
     }
     #novocenario {
