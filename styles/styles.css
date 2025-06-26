@@ -232,7 +232,7 @@ h1 {
     content: "";
     position: absolute;
     inset: 0;
-    background: url('https://github.com/mosiah-andrade/novo-site-homolog/blob/main/src/imagens/usinasolar.png?raw=true') center/cover no-repeat;
+    background: url('https://github.com/mosiah-andrade/novo-site-homolog/blob/main/src/imagens/usinasolar.webp?raw=true') center/cover no-repeat;
     opacity: 0.15;
     z-index: 0;
     pointer-events: none;
@@ -439,6 +439,11 @@ footer {
         font-weight: bolder;
         color: var(--neutral-100);
     }
+}
+
+#logobox{ 
+    width: fit-content !important; 
+}
 }
 @media (max-width: 1380px) {
     #hero #mascote{
