@@ -429,8 +429,235 @@ footer {
     }
 }
 
+#status .card{
+    background-color: var(--blue-base);
+    color: var(--neutral-100);
+    span{
+        font-weight: bolder;
+        color: var(--neutral-100);
+    }
+}
 @media (max-width: 1380px) {
     #hero #mascote{
         display: none !important;
+    }
+}
+
+
+/* ==========================================================================
+   CSS RESPONSIVO - HOMOLOG SOLAR
+   ========================================================================== */
+
+/* Telas de Desktops Menores e Tablets em modo Paisagem
+-------------------------------------------------------------------------- */
+@media (max-width: 1200px) {
+    /* Esconde os elementos decorativos que podem quebrar o layout */
+    .boxfloat1, .boxfloat2, .boxfloat3, .boxfloat4 {
+        display: none;
+    }
+
+    /* Ajusta o padding do cabeçalho para telas menores */
+    header {
+        body{
+            overflow: hidden;
+        }
+        margin-left:-200px ;
+        div{
+            width: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar-toggler{
+            position: absolute;
+            right: -160px;
+            top: 25%;
+        }
+    }
+    #novocenario {
+        p{
+            width: 90%;
+        }
+    }
+    #depoimentoUm img{
+        width: 90%;
+        height: auto;
+    }
+    #status{
+        max-width: none !important;
+        width: 100vw !important;
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+        border: none !important;
+        margin: auto !important;
+        .card{
+            width: 100% !important;
+            margin: 20px !important;
+            text-align: center;
+            justify-content: center !important;
+
+        }
+    }
+}
+
+/* Telas de Tablets em modo Retrato
+-------------------------------------------------------------------------- */
+@media (max-width: 992px) {
+    /* Seção Herói */
+    #hero {
+        /* Empilha o texto e o formulário */
+        flex-direction: column;
+        text-align: center;
+        padding-top: 40px;
+    }
+
+    #hero .container {
+        max-width: 100%;
+        padding: 0 20px;
+    }
+
+    #hero h1 {
+        font-size: 3.5rem !important; /* Reduz drasticamente o título */
+    }
+
+    #hero .lead {
+        font-size: 1.8rem;
+    }
+
+    #form {
+        margin: 40px auto !important;
+        width: 90%;
+        max-width: 450px;
+    }
+
+    /* Seção Benefícios (texto e imagem) */
+    #boxbeneficios .row {
+        flex-direction: column;
+    }
+    
+    #boxbeneficios .col-md-6 {
+        width: 100%;
+        max-width: 500px; /* Limita a largura do texto */
+        margin: 0 auto;
+    }
+
+    /* Seção Concessionárias */
+    #concessionarias {
+        flex-direction: column;
+    }
+
+    #concessionarias > div:last-child {
+        border-right: none;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+    }
+
+    /* Seção Processo */
+    #processositens {
+        flex-direction: column;
+        gap: 20px;
+    }
+    #processositens .bi-arrow-right {
+        display: none; /* Esconde as setas horizontais */
+    }
+
+    /* Rodapé */
+    footer .d-flex {
+        flex-direction: column;
+        text-align: center;
+    }
+    footer #social {
+        justify-content: center !important;
+        align-items: center !important;
+        width: 100% !important;
+    }
+}
+
+/* Telas de Celulares
+-------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    /* Ajustes gerais de espaçamento */
+    #beneficios, #processo, #depoimentos, #FAQ, #novocenario, #estados {
+        margin-bottom: 60px !important;
+    }
+
+    header {
+        padding: 0 20px; /* Menor padding no cabeçalho */
+    }
+
+    /* Tipografia geral */
+    h1, h2, h3 {
+        text-align: center;
+    }
+
+    #hero h1 {
+        font-size: 3rem !important;
+    }
+    
+    #hero .lead {
+        font-size: 1.5rem;
+    }
+
+    #hero p {
+        font-size: 1rem;
+    }
+
+    /* Ajusta o layout dos depoimentos */
+    #boxdepoimentos .row {
+        flex-direction: column;
+    }
+    #boxdepoimentos img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Seção Processo */
+    #processositens .box {
+        width: 90%;
+        max-width: 300px;
+        height: auto; /* Altura automática para o conteúdo caber */
+    }
+}
+
+
+/* Telas de Celulares Pequenos
+-------------------------------------------------------------------------- */
+@media (max-width: 576px) {
+    body {
+        font-size: 15px;
+    }
+
+    #hero h1 {
+        font-size: 2.5rem !important;
+    }
+
+    #hero .lead {
+        font-size: 1.3rem;
+    }
+
+    #form button {
+        width: 100%; /* Botão do formulário ocupa a largura toda */
+    }
+
+    #whatsapp-float .wa-btn {
+        width: 56px; /* Botão do WhatsApp um pouco menor */
+        height: 56px;
+        font-size: 1.8rem;
+    }
+    
+    #whatsapp-float {
+        bottom: 20px;
+        right: 20px;
+    }
+
+    /* Garante que imagens de estados e concessionárias se ajustem bem */
+    #grid .card, #estados .col-md-2 {
+        width: calc(50% - 10px) !important; /* Duas colunas */
+    }
+    
+    #grid, #estados .row {
+        gap: 10px;
     }
 }
