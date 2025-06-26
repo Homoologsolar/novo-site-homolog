@@ -442,10 +442,24 @@ footer {
         display: none !important;
     }
 }
-
-
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+main > .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+#whatsapp-float {
+    position: fixed;
+    right: 20px; /* Garante a posição correta em telas menores */
+    bottom: 20px;
+}
+#hero {
+    max-width: 100% !important;
+}
 /* ==========================================================================
-   CSS RESPONSIVO - HOMOLOG SOLAR
+   CSS RESPONSIVO - HOMOLOG SOLAR (VERSÃO CORRIGIDA)
    ========================================================================== */
 
 /* Telas de Desktops Menores e Tablets em modo Paisagem
@@ -456,63 +470,39 @@ footer {
         display: none;
     }
 
-    /* Ajusta o padding do cabeçalho para telas menores */
-    body{
-        overflow: hidden;
-    }
+    /* * CORREÇÃO IMPORTANTE:
+     * Remove o padding horizontal gigante do cabeçalho que estava no HTML.
+     * Esta é a forma correta de ajustar o cabeçalho, em vez de usar margens negativas.
+     */
     header {
-        margin-left:-200px ;
-        div{
-            width: 100px !important;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .navbar-toggler{
-            position: absolute;
-            right: -160px;
-            top: 25%;
-        }
-        nav div{
-            max-width: 100% !important;
-            width: 100% !important;
-            display: flex;
-            justify-content: space-between;
-            align-items: center ;
-        }
-    }
-    #novocenario {
-        p{
-            width: 90%;
-        }
-    }
-    #depoimentoUm img{
-        width: 90%;
-        height: auto;
-    }
-    #status{
-        max-width: none !important;
-        width: 100vw !important;
-        display: flex !important;
-        flex-direction: row !important;
-        justify-content: center !important;
-        border: none !important;
-        margin: auto !important;
-        .card{
-            width: 100% !important;
-            margin: 20px !important;
-            text-align: center;
-            justify-content: center !important;
-
-        }
+        padding: 0 30px !important;
     }
 }
 
 /* Telas de Tablets em modo Retrato
 -------------------------------------------------------------------------- */
 @media (max-width: 992px) {
-     body{
-        overflow: hidden;
+    .navbar > .container-fluid {
+        display: flex !important;
+        justify-content: space-between !important; /* CRÍTICO: Logo na esquerda, botão na direita */
+        align-items: center !important; /* Alinha tudo verticalmente no centro */
+        flex-wrap: nowrap !important; /* Impede que o botão caia para a linha de baixo */
+        padding: 0 1rem; /* Adiciona um respiro nas laterais */
+    }
+    .navbar-brand-group {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem; /* Cria um pequeno espaço entre o logo e o texto */
+    }
+    .navbar-brand {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .navbar-toggler {
+        position: static;
+        border: none;
+        outline: none;
+        box-shadow: none;
     }
     /* Seção Herói */
     #hero {
@@ -542,21 +532,17 @@ footer {
     }
 
     /* Seção Benefícios (texto e imagem) */
-    #boxbeneficios .row {
+    #boxbeneficios .row, #concessionarias {
         flex-direction: column;
     }
     
     #boxbeneficios .col-md-6 {
         width: 100%;
-        max-width: 500px; /* Limita a largura do texto */
+        max-width: 500px;
         margin: 0 auto;
     }
 
     /* Seção Concessionárias */
-    #concessionarias {
-        flex-direction: column;
-    }
-
     #concessionarias > div:last-child {
         border-right: none;
         border-bottom: 1px solid #ccc;
@@ -580,24 +566,21 @@ footer {
     }
     footer #social {
         justify-content: center !important;
-        align-items: center !important;
         width: 100% !important;
+        gap: 20px;
     }
 }
 
 /* Telas de Celulares
 -------------------------------------------------------------------------- */
 @media (max-width: 768px) {
-     body{
-        overflow: hidden;
-    }
     /* Ajustes gerais de espaçamento */
     #beneficios, #processo, #depoimentos, #FAQ, #novocenario, #estados {
         margin-bottom: 60px !important;
     }
 
     header {
-        padding: 0 20px; /* Menor padding no cabeçalho */
+        padding: 0 20px !important; /* Menor padding no cabeçalho */
     }
 
     /* Tipografia geral */
@@ -617,12 +600,19 @@ footer {
         font-size: 1rem;
     }
 
+    #depoimentoUm img {
+        width: 100%;
+        height: auto;
+    }
+
     /* Ajusta o layout dos depoimentos */
     #boxdepoimentos .row {
         flex-direction: column;
+        align-items: center;
     }
     #boxdepoimentos img {
-        max-width: 100%;
+        width: 100%;
+        max-width: 383px; /* Mantém um tamanho máximo razoável */
         height: auto;
     }
 
@@ -638,13 +628,15 @@ footer {
 /* Telas de Celulares Pequenos
 -------------------------------------------------------------------------- */
 @media (max-width: 576px) {
-     body{
-        overflow: hidden;
-    }
     body {
         font-size: 15px;
     }
 
+    #grid {
+       display: flex;
+       flex-wrap: wrap;
+       justify-content: center;
+    }
     #hero h1 {
         font-size: 2.5rem !important;
     }
