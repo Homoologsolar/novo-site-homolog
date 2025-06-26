@@ -232,7 +232,7 @@ h1 {
     content: "";
     position: absolute;
     inset: 0;
-    background: url('/src/imagens/usinasolar.png') center/cover no-repeat;
+    background: url('https://github.com/mosiah-andrade/novo-site-homolog/blob/main/src/imagens/usinasolar.png?raw=true') center/cover no-repeat;
     opacity: 0.15;
     z-index: 0;
     pointer-events: none;
@@ -479,9 +479,6 @@ footer {
             display: flex;
             justify-content: space-between;
             align-items: center ;
-        }
-        .btn{
-            width: 80vw !important;
         }
     }
     #novocenario {
