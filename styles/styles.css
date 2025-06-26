@@ -368,6 +368,9 @@ h1 {
 }
 #estados{
     margin-top: 50px !important;
+    h2, p{
+        max-width: 90%;
+    }
 }
 #boxdepoimentos{
     max-width: 1200px;
@@ -458,6 +461,7 @@ main > .row {
 #hero {
     max-width: 100% !important;
 }
+
 /* ==========================================================================
    CSS RESPONSIVO - HOMOLOG SOLAR (VERSÃO CORRIGIDA)
    ========================================================================== */
@@ -482,6 +486,13 @@ main > .row {
 /* Telas de Tablets em modo Retrato
 -------------------------------------------------------------------------- */
 @media (max-width: 992px) {
+
+    #estados{
+        margin-top: 50px !important;
+        h2, p{
+        width: 90%;
+        }
+    }   
     .navbar > .container-fluid {
         display: flex !important;
         justify-content: space-between !important; /* CRÍTICO: Logo na esquerda, botão na direita */
@@ -503,6 +514,120 @@ main > .row {
         border: none;
         outline: none;
         box-shadow: none;
+    }
+    .navbar {
+        position: relative;
+    }
+    .navbar-collapse.collapse.show,
+    .navbar-collapse.collapsing {
+        position: absolute;
+        top: 100%; /* Posiciona o menu exatamente abaixo da barra de navegação */
+        left: 0;   /* Alinha o menu com o lado esquerdo da barra */
+        width: 100%; /* Faz o menu ter a mesma largura da barra */
+        
+        /* Estilos visuais para o painel */
+        background-color: var(--neutral-100); /* Cor de fundo para que não seja transparente */
+        padding: 1rem;
+        border-radius: 0 0 12px 12px; /* Cantos arredondados na parte de baixo */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Sombra para dar profundidade */
+        z-index: 1000; /* Garante que o menu fique acima do conteúdo da página */
+    }
+
+    /* 3. Organiza a lista de links dentro do novo painel dropdown */
+    .navbar-collapse .navbar-nav {
+        align-items: flex-start; /* Alinha os itens à esquerda */
+        width: 100%;
+    }
+
+    /* 4. Garante que cada item do menu ocupe toda a largura */
+    .navbar-collapse .navbar-nav .nav-item {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .navbar-collapse .navbar-nav .nav-item:last-child {
+        margin-bottom: 0;
+    }
+
+    /* 5. Ajusta o botão "Entre em Contato" para o novo layout */
+    .navbar-collapse .navbar-nav .btn {
+        width: 100%;
+        text-align: center;
+        margin-top: 0.5rem;
+    }
+     /* 1. Prepara o container para o posicionamento do menu */
+    .navbar {
+        position: relative;
+    }
+
+    /* 2. Animação do PAINEL do menu (o container)
+       Faz o painel surgir com um leve fade e scale.
+    */
+    .navbar-collapse {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        
+        /* Estilos visuais */
+        background-color: var(--neutral-100);
+        padding: 1rem;
+        border-radius: 0 0 12px 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        
+        /* Propriedades da animação */
+        opacity: 0;
+        transform: translateY(-10px); /* Começa um pouco acima */
+        visibility: hidden;
+        transition: opacity 0.2s ease-out, transform 0.2s ease-out, visibility 0s 0.2s;
+    }
+
+    .navbar-collapse.show {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+        transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+    }
+
+    /* 3. Prepara os ITENS INDIVIDUAIS do menu para a animação
+       Eles começam transparentes e um pouco acima de sua posição final.
+    */
+    .navbar-collapse .nav-item {
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    }
+
+    /* 4. Ativa a animação EM CASCATA quando o menu está aberto
+       Aplicamos a animação e um atraso diferente para cada item.
+    */
+    .navbar-collapse.show .nav-item {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    /* Atrasos para o efeito cascata */
+    .navbar-collapse.show .nav-item:nth-child(1) { transition-delay: 0.10s; }
+    .navbar-collapse.show .nav-item:nth-child(2) { transition-delay: 0.15s; }
+    .navbar-collapse.show .nav-item:nth-child(3) { transition-delay: 0.20s; }
+    .navbar-collapse.show .nav-item:nth-child(4) { transition-delay: 0.25s; }
+    .navbar-collapse.show .nav-item:nth-child(5) { transition-delay: 0.30s; }
+    .navbar-collapse.show .nav-item:nth-child(6) { transition-delay: 0.35s; } /* Para o botão de contato */
+
+    /* [Estilos de layout que devem ser mantidos] */
+    .navbar-collapse .navbar-nav {
+        align-items: flex-start;
+        width: 100%;
+    }
+    .navbar-collapse .navbar-nav .nav-item {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    .navbar-collapse .navbar-nav .btn {
+        width: 100%;
+        text-align: center;
+        margin-top: 0.5rem;
     }
     #status{
         border: none !important; /* Remove a borda do card de status */
