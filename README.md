@@ -72,10 +72,7 @@ Esta é a página de entrada do site. Suas principais seções e funcionalidades
     *   **Header:** Contém a barra de navegação (`navbar`) com links para seções da página (`#beneficios`, `#processo`, `#depoimentos`, `#FAQ`) e um botão de contato para WhatsApp.
     *   **Main Content (`<main>`):**
         *   **Hero Section (`#hero`):** Seção de destaque com título, subtítulo e um formulário de contato para captação de leads. Inclui uma imagem de mascote e um background com imagem de usina solar.
-        *   **Benefícios (`#beneficios`, `#boxbeneficios`):** Descreve o problema que a Homolog Solar resolve (o 
-
-
-Custo da Espera) e apresenta a solução da Homolog Solar.
+        *   **Benefícios (`#beneficios`, `#boxbeneficios`):** Descreve o problema que a Homolog Solar resolve (o Custo da Espera) e apresenta a solução da Homolog Solar.
         *   **Depoimentos (`#depoimentos`, `#depoimentoUm`):** Exibe depoimentos de clientes satisfeitos, com imagens.
         *   **Concessionárias (`#concessionarias`):** Lista as principais concessionárias de energia do Nordeste com as quais a Homolog Solar trabalha, juntamente com estatísticas de experiência e projetos aprovados.
         *   **Processo (`#processo`, `#boxprocesso`):** Detalha o processo simplificado de homologação da Homolog Solar.
