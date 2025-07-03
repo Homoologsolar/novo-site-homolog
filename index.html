@@ -138,27 +138,25 @@
                 <div class="row mb-4 text-center">
                     <h2>Dê o primeiro passo para <span>homologar</span></h2>
                 </div>
-                <div class="row">
-                    <div class=" ">
-                        <form action="https://submit-form.com/7HG940yxV" method="post" class="form">
-                            <div class="mb-3">
-                                <label for="name" class="form-label" >Nome</label>
-                                <input type="text" class="form-control" id="name" name="nome" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="phone" class="form-label">Telefone (Whatsapp)</label>
-                                <input type="tel" class="form-control" id="phone" required name="Telefone" placeholder="Ex: 81999999-9999">
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">E-mail <span>opcional</span></label>
-                                <input type="email" class="form-control" id="email" name="email" >
-                            </div>
-
-                            <input type="hidden" name="_redirect" value="https://homologsolar.com/obrigado.html">
-
-                            <button type="submit" class="btn btn-warning">QUERO ACELERAR MINHAS APROVAÇÕES</button>
-                        </form>
-                    </div>
+            <div class="row">
+                <div class=" ">
+                    <form action="https://submit-form.com/7HG940yxV" method="post" class="form" id="contactForm"> <div class="mb-3">
+                        <label for="name" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="name" name="nome" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Telefone (Whatsapp)</label>
+                            <input type="tel" class="form-control" id="phone" required name="Telefone" placeholder="Ex: (81) 99999-9999" maxlength="15"> 
+                            <span id="phoneError" class="text-danger small"></span> </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">E-mail <span>opcional</span></label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+            
+                        <input type="hidden" name="_redirect" value="https://homologsolar.com/obrigado.html">
+            
+                        <button type="submit" class="btn btn-warning">QUERO ACELERAR MINHAS APROVAÇÕES</button>
+                    </form>
                 </div>
             </div>
             
@@ -429,6 +427,64 @@
 
 
     <script defer>
+
+        // Função para formatar o telefone enquanto o usuário digita
+        function formatPhoneNumber(input) {
+            let value = input.value.replace(/\D/g, ''); // Remove tudo que não for dígito
+            let formattedValue = '';
+    
+            if (value.length > 0) {
+                formattedValue = '(' + value.substring(0, 2);
+                if (value.length > 2) {
+                    formattedValue += ') ' + value.substring(2, 7);
+                    if (value.length > 7) {
+                        formattedValue += '-' + value.substring(7, 11);
+                    }
+                }
+            }
+            input.value = formattedValue;
+        }
+    
+        // Função para validar o telefone antes do envio do formulário
+        function validatePhoneNumber(input) {
+            const value = input.value.replace(/\D/g, ''); // Remove tudo que não for dígito
+            const errorSpan = document.getElementById('phoneError');
+    
+            // Padrão para 10 ou 11 dígitos (DDD + 8 ou 9 dígitos)
+            // 10 dígitos: (XX) XXXX-XXXX (ex: (11) 1234-5678)
+            // 11 dígitos: (XX) XXXXX-XXXX (ex: (11) 91234-5678)
+            if (value.length < 10 || value.length > 11) {
+                errorSpan.textContent = 'Por favor, insira um telefone válido com 10 ou 11 dígitos (incluindo DDD).';
+                input.classList.add('is-invalid'); // Adiciona classe de erro do Bootstrap
+                return false;
+            } else {
+                errorSpan.textContent = ''; // Limpa a mensagem de erro
+                input.classList.remove('is-invalid'); // Remove classe de erro
+                input.classList.add('is-valid'); // Adiciona classe de sucesso
+                return true;
+            }
+        }
+    
+        // Adiciona event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneInput = document.getElementById('phone');
+            const contactForm = document.getElementById('contactForm');
+    
+            // Formata o telefone ao digitar
+            phoneInput.addEventListener('input', function() {
+                formatPhoneNumber(this);
+                // Também valida em tempo real, mas sem impedir a digitação
+                validatePhoneNumber(this); 
+            });
+    
+            // Valida o telefone ao tentar enviar o formulário
+            contactForm.addEventListener('submit', function(event) {
+                if (!validatePhoneNumber(phoneInput)) {
+                    event.preventDefault(); // Impede o envio do formulário se a validação falhar
+                }
+            });
+        });
+        
         (function() {
             const tooltip = document.getElementById('wa-tooltip');
             function showTooltip() {
