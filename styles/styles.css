@@ -238,6 +238,42 @@ h1 {
     z-index: 0;
 }
 
+/* Estilo para o Play Overlay */
+.play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo semi-transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10; /* Garante que o overlay fique acima do vídeo */
+    transition: background-color 0.3s ease; /* Transição suave */
+}
+
+.play-overlay:hover {
+    background-color: rgba(0, 0, 0, 0.4); /* Fundo um pouco mais claro ao passar o mouse */
+}
+
+.play-overlay i {
+    font-size: 5rem; /* Tamanho do ícone de play */
+    color: white; /* Cor do ícone */
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+}
+
+.play-overlay:hover i {
+    opacity: 1;
+}
+
+/* Esconde o overlay quando o vídeo começa */
+.play-overlay.hidden {
+    display: none;
+}
+
 #beneficios, #processo, #depoimentos, #FAQ {
     margin-bottom: 100px !important;
 }
