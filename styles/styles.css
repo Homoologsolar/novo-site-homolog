@@ -353,9 +353,18 @@ footer a:hover { color: var(--yellow-dark); }
 #social { font-size: 25px; }
 #social a:hover { color: var(--yellow-darker); transform: scale(1.1); }
 
+#status {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-content: center;
+}
 #status .card {
     background-color: var(--blue-base);
     color: var(--neutral-100);
+    padding: 10px;
+    margin-right: 20px;
+    
 }
 #status .card span {
     color: var(--neutral-100);
@@ -486,7 +495,7 @@ footer a:hover { color: var(--yellow-dark); }
         }
     }
 
-    #beneficios, #processo, #depoimentos, #FAQ, #novocenario, #estados { margin-bottom: 60px !important; }
+    #beneficios, #processo, #depoimentos, #FAQ, #novocenario, #estados { margin-bottom: 60px !important; padding: 20px;}
     header { padding: 0 20px !important; }
     h1, h2, h3 { text-align: center; }
     #hero h1 { font-size: 3rem !important; }
@@ -496,6 +505,7 @@ footer a:hover { color: var(--yellow-dark); }
     #boxdepoimentos .row { flex-direction: column; align-items: center; }
     #boxdepoimentos img { width: 100%; max-width: 383px; height: auto; }
     #processositens .box { width: 90%; max-width: 300px; height: auto; }
+    #status{ gap: 20px; border: none !important; max-width: none !important; margin-top: 20px; .card { width: 100% !important; max-width: none !important; margin: 0 ;} }
 }
 
 /* --- Celulares Pequenos --- */
