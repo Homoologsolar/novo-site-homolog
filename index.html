@@ -489,10 +489,24 @@
                 validatePhoneNumber(this); 
             });
     
-            // Valida o telefone ao tentar enviar o formulário
+           // Valida o telefone ao tentar enviar o formulário
             contactForm.addEventListener('submit', function(event) {
                 if (!validatePhoneNumber(phoneInput)) {
                     event.preventDefault(); // Impede o envio do formulário se a validação falhar
+                } else {
+                    // ---> NOVO CÓDIGO PARA CONVERSÕES OTIMIZADAS <---
+                    const emailInput = document.getElementById('email').value;
+                    const phoneVal = phoneInput.value.replace(/\D/g, ''); // Remove os parênteses e traços
+                    
+                    // Formata o telefone para o padrão E.164 (ex: +5581987654321) exigido pelo Google
+                    let formattedPhone = '';
+                    if (phoneVal) {
+                        formattedPhone = '+55' + phoneVal;
+                    }
+
+                    // Guarda os dados na sessão temporária do navegador
+                    if (emailInput) sessionStorage.setItem('userEmail', emailInput);
+                    if (formattedPhone) sessionStorage.setItem('userPhone', formattedPhone);
                 }
             });
         });

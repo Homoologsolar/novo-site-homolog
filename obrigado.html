@@ -6,7 +6,9 @@
     
     <title>Obrigado pelo Contato | Homolog Solar</title>
     <meta name="description" content="Formulário enviado com sucesso. Agradecemos seu interesse em nossos serviços de homologação fotovoltaica. Entraremos em contato em breve.">
-    <meta name="robots" content="noindex, nofollow"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <meta name="robots" content="noindex, nofollow"> 
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="styles/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
@@ -14,38 +16,36 @@
     <link rel="shortcut icon" href="src/imagens/homolog-icon.webp" type="image/x-icon">
     <link rel="apple-touch-icon" href="src/imagens/homolog-icon.webp">
 
-    <!-- Event snippet for entrou em contato conversion page
-    In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
-    <script>
-        function gtag_report_conversion(url) {
-        var callback = function () {
-            if (typeof(url) != 'undefined') {
-            window.location = url;
-            }
-        };
-        gtag('event', 'conversion', {
-            'send_to': 'AW-16701112383/dDxpCIuywOQaEL-A25s-',
-            'event_callback': callback
-        });
-        return false;
-        }
-    </script>
-
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16701112383"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', 'AW-16701112383',);
+        gtag('config', 'AW-16701112383'); // Vírgula extra removida aqui
     </script>
 
-    <!-- Event snippet for entrou em contato (1) conversion page --> 
     <script> 
+        // Recupera os dados que foram guardados no index.html
+        var savedEmail = sessionStorage.getItem('userEmail');
+        var savedPhone = sessionStorage.getItem('userPhone');
+        
+        var userData = {};
+        if (savedEmail) userData.email = savedEmail;
+        if (savedPhone) userData.phone_number = savedPhone;
+
+        // Se existirem dados, configura a tag user_data ANTES de disparar a conversão
+        if (Object.keys(userData).length > 0) {
+            gtag('set', 'user_data', userData);
+            
+            // Limpa a sessão para evitar reenvio em caso de refresh da página
+            sessionStorage.removeItem('userEmail');
+            sessionStorage.removeItem('userPhone');
+        }
+
+        // Dispara o evento de conversão específico
         gtag('event', 'conversion', {'send_to': 'AW-16701112383/GzgFCIPG1-QaEL-A25s-'}); 
     </script>
-
 </head>
 <body>
     
