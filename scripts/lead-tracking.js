@@ -192,7 +192,15 @@
     }
 
     if (!data.referrer && currentReferrer) {
-      data.referrer = currentReferrer;
+        try {
+            const referrerUrl = new URL(currentReferrer);
+
+            if (referrerUrl.hostname !== window.location.hostname) {
+            data.referrer = currentReferrer;
+            }
+        } catch (e) {
+            data.referrer = '';
+        }
     }
 
     data.media = getMediaLabel(
