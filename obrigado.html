@@ -19,64 +19,48 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16701112383"></script>
     
-    <script>
-        window.dataLayer = window.dataLayer || [];
     
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-    
-        gtag('js', new Date());
-        gtag('config', 'AW-16701112383');
-    
-        (function () {
-            'use strict';
-    
-            try {
-                // Só dispara a conversão se o formulário foi enviado.
-                if (sessionStorage.getItem('hs_form_submitted') !== '1') {
-                    return;
-                }
-    
-                // Recupera os dados antes de limpar a sessão.
-                var savedEmail = sessionStorage.getItem('userEmail');
-                var savedPhone = sessionStorage.getItem('userPhone');
-    
-                var userData = {};
-    
-                if (savedEmail) {
-                    userData.email = savedEmail;
-                }
-    
-                if (savedPhone) {
-                    userData.phone_number = savedPhone;
-                }
-    
-                // Configura os dados avançados de conversão.
-                if (Object.keys(userData).length > 0) {
-                    gtag('set', 'user_data', userData);
-                }
-    
-                // Impede uma segunda conversão ao atualizar a página.
-                sessionStorage.removeItem('hs_form_submitted');
-    
-                // Dispara a conversão confirmada no Google Ads.
-                gtag('event', 'conversion', {
-                    'send_to': 'AW-16701112383/GzgFCIPG1-QaEL-A25s-'
-                });
-    
-                // Limpa os dados pessoais após enfileirar os eventos.
-                sessionStorage.removeItem('userEmail');
-                sessionStorage.removeItem('userPhone');
-    
-            } catch (error) {
-                console.warn(
-                    'Não foi possível registrar a conversão:',
-                    error
-                );
+<script>
+    (function () {
+        'use strict';
+
+        try {
+            // Só processa os dados se o formulário foi enviado.
+            if (sessionStorage.getItem('hs_form_submitted') !== '1') {
+                return;
             }
-        })();
-    </script>
+
+            // Recupera os dados antes de limpar a sessão.
+            var savedEmail = sessionStorage.getItem('userEmail');
+            var savedPhone = sessionStorage.getItem('userPhone');
+
+            // Configura os dados avançados de conversão para o Google.
+            var userData = {};
+
+            if (savedEmail) {
+                userData.email = savedEmail;
+            }
+
+            if (savedPhone) {
+                userData.phone_number = savedPhone;
+            }
+
+            // Não dispara conversão aqui.
+            // O GTM será responsável pelo disparo.
+
+            sessionStorage.removeItem('hs_form_submitted');
+            sessionStorage.removeItem('userEmail');
+            sessionStorage.removeItem('userPhone');
+
+        } catch (error) {
+            console.warn(
+                'Não foi possível processar os dados:',
+                error
+            );
+        }
+    })();
+</script>
+
     <!-- Google Tag Manager -->
     <script>
     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
