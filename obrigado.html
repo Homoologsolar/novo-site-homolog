@@ -20,46 +20,34 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16701112383"></script>
     
     
-<script>
+
+    <script>
     (function () {
         'use strict';
-
+    
         try {
-            // Só processa os dados se o formulário foi enviado.
             if (sessionStorage.getItem('hs_form_submitted') !== '1') {
                 return;
             }
-
-            // Recupera os dados antes de limpar a sessão.
-            var savedEmail = sessionStorage.getItem('userEmail');
-            var savedPhone = sessionStorage.getItem('userPhone');
-
-            // Configura os dados avançados de conversão para o Google.
-            var userData = {};
-
-            if (savedEmail) {
-                userData.email = savedEmail;
-            }
-
-            if (savedPhone) {
-                userData.phone_number = savedPhone;
-            }
-
-            // Não dispara conversão aqui.
-            // O GTM será responsável pelo disparo.
-
+    
+            window.dataLayer = window.dataLayer || [];
+    
+            // Confirma ao GTM que houve envio válido do formulário.
+            window.dataLayer.push({
+                event: 'hs_form_success'
+            });
+    
+            // Impede uma segunda conversão ao atualizar a página.
             sessionStorage.removeItem('hs_form_submitted');
             sessionStorage.removeItem('userEmail');
             sessionStorage.removeItem('userPhone');
-
+    
         } catch (error) {
-            console.warn(
-                'Não foi possível processar os dados:',
-                error
-            );
+            console.warn('Erro ao processar conversão:', error);
         }
     })();
-</script>
+    </script>
+
 
     <!-- Google Tag Manager -->
     <script>
