@@ -16,77 +16,66 @@
     <link rel="shortcut icon" href="src/imagens/homolog-icon.webp" type="image/x-icon">
     <link rel="apple-touch-icon" href="src/imagens/homolog-icon.webp">
 
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16701112383"></script>
+    
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+    
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+    
         gtag('js', new Date());
-
-        gtag('config', 'AW-16701112383'); // Vírgula extra removida aqui
-    </script>
-
-    <script> 
-        // Recupera os dados que foram guardados no index.html
-        var savedEmail = sessionStorage.getItem('userEmail');
-        var savedPhone = sessionStorage.getItem('userPhone');
-        
-        var userData = {};
-        if (savedEmail) userData.email = savedEmail;
-        if (savedPhone) userData.phone_number = savedPhone;
-
-        // Se existirem dados, configura a tag user_data ANTES de disparar a conversão
-        if (Object.keys(userData).length > 0) {
-            gtag('set', 'user_data', userData);
-            
-            // Limpa a sessão para evitar reenvio em caso de refresh da página
-            sessionStorage.removeItem('userEmail');
-            sessionStorage.removeItem('userPhone');
-        }
-
-        // Dispara o evento de conversão específico
-        
+        gtag('config', 'AW-16701112383');
+    
         (function () {
-        try {
-            // Só registra conversão se houve envio do formulário
-            // nesta sessão.
-            if (sessionStorage.getItem('hs_form_submitted') !== '1') {
-            return;
+            'use strict';
+    
+            try {
+                // Só dispara a conversão se o formulário foi enviado.
+                if (sessionStorage.getItem('hs_form_submitted') !== '1') {
+                    return;
+                }
+    
+                // Recupera os dados antes de limpar a sessão.
+                var savedEmail = sessionStorage.getItem('userEmail');
+                var savedPhone = sessionStorage.getItem('userPhone');
+    
+                var userData = {};
+    
+                if (savedEmail) {
+                    userData.email = savedEmail;
+                }
+    
+                if (savedPhone) {
+                    userData.phone_number = savedPhone;
+                }
+    
+                // Configura os dados avançados de conversão.
+                if (Object.keys(userData).length > 0) {
+                    gtag('set', 'user_data', userData);
+                }
+    
+                // Impede uma segunda conversão ao atualizar a página.
+                sessionStorage.removeItem('hs_form_submitted');
+    
+                // Dispara a conversão confirmada no Google Ads.
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-16701112383/GzgFCIPG1-QaEL-A25s-'
+                });
+    
+                // Limpa os dados pessoais após enfileirar os eventos.
+                sessionStorage.removeItem('userEmail');
+                sessionStorage.removeItem('userPhone');
+    
+            } catch (error) {
+                console.warn(
+                    'Não foi possível registrar a conversão:',
+                    error
+                );
             }
-
-            // Remove antes de disparar para evitar duplicidade
-            // ao atualizar a página.
-            sessionStorage.removeItem('hs_form_submitted');
-
-            var savedEmail = sessionStorage.getItem('userEmail');
-            var savedPhone = sessionStorage.getItem('userPhone');
-
-            var userData = {};
-
-            if (savedEmail) {
-            userData.email = savedEmail;
-            }
-
-            if (savedPhone) {
-            userData.phone_number = savedPhone;
-            }
-
-            if (Object.keys(userData).length > 0) {
-            gtag('set', 'user_data', userData);
-            }
-
-            sessionStorage.removeItem('userEmail');
-            sessionStorage.removeItem('userPhone');
-
-            gtag('event', 'conversion', {
-            'send_to': 'AW-16701112383/GzgFCIPG1-QaEL-A25s-'
-            });
-
-        } catch (error) {
-            console.warn('Não foi possível validar a conversão:', error);
-        }
         })();
-
-
     </script>
 </head>
 <body>
@@ -116,7 +105,7 @@
                             <a class="nav-link" href="index.html#FAQ">FAQ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="btn btn-warning" href="https://wa.me/55558189878175?text=Ola,%20vim%20pelo%20Site." target="_blank">Entre Em Contato</a>
+                            <a class="btn btn-warning" href="https://wa.me/558189878175?text=Ola,%20vim%20pelo%20Site." target="_blank">Entre Em Contato</a>
                         </li>
                     </ul>
                 </div>
@@ -154,7 +143,7 @@
                     <a href="index.html#processo">Nossos Processo</a>
                     <a href="index.html#depoimentos">Depoimentos</a>
                     <a href="index.html#FAQ">FAQ</a>
-                    <a href="https://wa.me/55558189878175?text=Ola,%20vim%20pelo%20Site." target="_blank">Entre em Contato</a>
+                    <a href="https://wa.me/558189878175?text=Ola,%20vim%20pelo%20Site." target="_blank">Entre em Contato</a>
                 </div>
                 <div class="p-3 flex-fill " >
                     <h5>Contato</h5>
@@ -165,7 +154,7 @@
                     <div id="social" class="d-flex justify-content-start gap-2">
                         <a href="https://www.linkedin.com/company/homologsolar/" class="bi bi-linkedin" target="_blank"></a>
                         <a href="https://www.instagram.com/homolog_solar/" class=" bi bi-instagram" target="_blank"></a>
-                        <a href="https://wa.me/55558189878175?text=Ola,%20vim%20pelo%20Site." class="bi bi-whatsapp" target="_blank"></a>
+                        <a href="https://wa.me/558189878175?text=Ola,%20vim%20pelo%20Site." class="bi bi-whatsapp" target="_blank"></a>
                 </div>
             </div>
         </div>
@@ -174,7 +163,7 @@
 
     <div id="whatsapp-float">
         <div class="wa-tooltip" id="wa-tooltip">Entre em contato</div>
-        <a href="https://wa.me/55558189878175?text=Ola,%20vim%20pelo%20Site." target="_blank" rel="noopener" class="wa-btn" aria-label="WhatsApp">
+        <a href="https://wa.me/558189878175?text=Ola,%20vim%20pelo%20Site." target="_blank" rel="noopener" class="wa-btn" aria-label="WhatsApp">
             <i class="bi bi-whatsapp"></i>
         </a>
     </div>
