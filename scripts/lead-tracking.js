@@ -301,57 +301,63 @@
   }
 
   function prepareWhatsApp() {
-    const links = document.querySelectorAll(
+  // Captura cliques em links do WhatsApp e no tooltip flutuante.
+  // Não altera o link nem o texto da mensagem.
+  document.addEventListener('click', function (event) {
+    const target = event.target;
+
+    if (!(target instanceof Element)) return;
+
+    const whatsappLink = target.closest(
       'a[href*="wa.me/"], a[href*="api.whatsapp.com/send"]'
     );
 
-    links.forEach(function (link) {
-      if (link.dataset.hsTracking === '1') return;
+    const tooltip = target.closest('#wa-tooltip');
 
-      link.dataset.hsTracking = '1';
+    // Ignora cliques que não sejam relacionados ao WhatsApp.
+    if (!whatsappLink && !tooltip) return;
 
-      link.addEventListener('click', function () {
-        const data = captureAttribution();
-        const last = data.last_touch || {};
+    const data = captureAttribution();
+    const first = data.first_touch || {};
+    const last = data.last_touch || {};
 
-        const params = new URLSearchParams(
-          link.href.split('?')[1] || ''
-        );
+    window.dataLayer = window.dataLayer || [];
 
-        const originalMessage = params.get('text') || '';
+    window.dataLayer.push({
+      event: 'hs_whatsapp_click',
 
-        const reference = [
-          '[Referência Homolog Solar]',
-          'Origem: ' + (data.media || 'Outro'),
-          'Campanha: ' + (last.campaign || 'Não identificada'),
-          'Página: ' + (data.landing_page || '')
-        ].join('\n');
+      canal_entrada: 'WhatsApp',
+      midia: data.media || 'Outro',
 
-        if (!originalMessage.includes('[Referência Homolog Solar]')) {
-          params.set(
-            'text',
-            originalMessage
-              ? originalMessage + '\n\n' + reference
-              : reference
-          );
-        }
+      // Última origem identificada.
+      utm_source: last.source || '',
+      utm_medium: last.medium || '',
+      utm_campaign: last.campaign || '',
 
-        const base = link.href.split('?')[0];
-        link.href = base + '?' + params.toString();
+      // Primeiro contato.
+      primeiro_toque_source: first.source || '',
+      primeiro_toque_medium: first.medium || '',
+      primeiro_toque_campaign: first.campaign || '',
 
-        window.dataLayer = window.dataLayer || [];
+      // Identificadores de anúncios.
+      gclid: data.gclid || '',
+      gbraid: data.gbraid || '',
+      wbraid: data.wbraid || '',
 
-        window.dataLayer.push({
-          event: 'hs_whatsapp_click',
-          canal_entrada: 'WhatsApp',
-          midia: data.media,
-          utm_source: last.source || '',
-          utm_medium: last.medium || '',
-          utm_campaign: last.campaign || ''
-        });
-      });
+      // Dados da navegação.
+      landing_page: data.landing_page || '',
+      page_location: window.location.href,
+      page_title: document.title,
+      referrer: document.referrer || '',
+
+      // Elemento clicado.
+      link_url: whatsappLink ? whatsappLink.href : '',
+      link_text: whatsappLink
+        ? (whatsappLink.innerText || '').trim()
+        : 'Tooltip WhatsApp'
     });
-  }
+  }, true);
+}
 
   function init() {
     captureAttribution();
