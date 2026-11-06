@@ -20,7 +20,6 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16701112383"></script>
     
     
-
     <script>
     (function () {
         'use strict';
@@ -30,20 +29,34 @@
                 return;
             }
     
+            var savedEmail = sessionStorage.getItem('userEmail');
+            var savedPhone = sessionStorage.getItem('userPhone');
+    
+            var userData = {};
+    
+            if (savedEmail) {
+                userData.email = savedEmail.trim().toLowerCase();
+            }
+    
+            if (savedPhone) {
+                userData.phone_number = savedPhone.replace(/[^\d+]/g, '');
+            }
+    
             window.dataLayer = window.dataLayer || [];
     
-            // Confirma ao GTM que houve envio válido do formulário.
+            // Envia os dados antes do evento de conversão.
             window.dataLayer.push({
+                user_data: userData,
                 event: 'hs_form_success'
             });
     
-            // Impede uma segunda conversão ao atualizar a página.
+            // Limpa os dados temporários após o envio à camada de dados.
             sessionStorage.removeItem('hs_form_submitted');
             sessionStorage.removeItem('userEmail');
             sessionStorage.removeItem('userPhone');
     
         } catch (error) {
-            console.warn('Erro ao processar conversão:', error);
+            console.warn('Erro ao processar dados da conversão:', error);
         }
     })();
     </script>
