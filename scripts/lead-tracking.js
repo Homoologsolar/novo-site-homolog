@@ -16,8 +16,17 @@
   function safeSet(key, value) {
     try {
       sessionStorage.setItem(key, value);
+      return sessionStorage.getItem(key) === String(value);
     } catch (e) {
-      // O rastreamento não deve impedir o funcionamento do site.
+      return false;
+    }
+  }
+
+  function safeRemove(key) {
+    try {
+      sessionStorage.removeItem(key);
+    } catch (e) {
+      // Não impedir o funcionamento do site.
     }
   }
 
@@ -112,8 +121,10 @@
 
     if (
       paid.includes(medium.toLowerCase()) ||
-      ['google', 'adwords'].includes(source.toLowerCase()) &&
-      medium !== 'organic'
+      (
+        ['google', 'adwords'].includes(source.toLowerCase()) &&
+        medium !== 'organic'
+      )
     ) {
       return 'Google Ads';
     }
@@ -153,7 +164,6 @@
 
     const currentReferrer = document.referrer || '';
 
-    // Primeiro contato: não substituir durante a sessão.
     if (!data.first_touch) {
       data.first_touch = {
         source: source,
@@ -163,8 +173,6 @@
       };
     }
 
-    // Último contato: atualizar quando houver campanha ou
-    // quando o visitante chegar de uma origem externa.
     if (
       !data.last_touch ||
       hasCampaignData ||
@@ -181,7 +189,6 @@
       };
     }
 
-    // Guardar identificadores de clique durante a sessão.
     ['gclid', 'gbraid', 'wbraid'].forEach(function (key) {
       const value = params.get(key);
       if (value) data[key] = value;
@@ -192,15 +199,15 @@
     }
 
     if (!data.referrer && currentReferrer) {
-        try {
-            const referrerUrl = new URL(currentReferrer);
+      try {
+        const referrerUrl = new URL(currentReferrer);
 
-            if (referrerUrl.hostname !== window.location.hostname) {
-            data.referrer = currentReferrer;
-            }
-        } catch (e) {
-            data.referrer = '';
+        if (referrerUrl.hostname !== window.location.hostname) {
+          data.referrer = currentReferrer;
         }
+      } catch (e) {
+        data.referrer = '';
+      }
     }
 
     data.media = getMediaLabel(
@@ -232,10 +239,19 @@
 
     if (!form) return;
 
-    form.addEventListener('submit', function (event) {
+    form.addEventListener('submit', function () {
+
+      // Remove qualquer marca de uma tentativa anterior.
+      safeRemove(SUBMIT_KEY);
+
       const phone = form.querySelector('[name="Telefone"]');
 
-      // Respeita a validação telefônica já existente.
+      // Confere a validade do formulário.
+      if (!form.checkValidity()) {
+        return;
+      }
+
+      // Confere a validação telefônica personalizada.
       if (phone) {
         const digits = phone.value.replace(/\D/g, '');
 
@@ -248,6 +264,10 @@
       const first = data.first_touch || {};
       const last = data.last_touch || {};
 
+      const params = new URLSearchParams(
+        window.location.search
+      );
+
       const fields = {
         origem: data.media,
         canal_entrada: 'Formulário',
@@ -255,12 +275,8 @@
 
         campanha: last.campaign,
         tipo_campanha: last.medium,
-        grupo_ou_anuncio: new URLSearchParams(
-          window.location.search
-        ).get('utm_content') || '',
-        termo_de_pesquisa: new URLSearchParams(
-          window.location.search
-        ).get('utm_term') || '',
+        grupo_ou_anuncio: params.get('utm_content') || '',
+        termo_de_pesquisa: params.get('utm_term') || '',
 
         gclid: data.gclid || '',
         gbraid: data.gbraid || '',
@@ -269,12 +285,8 @@
         utm_source: last.source,
         utm_medium: last.medium,
         utm_campaign: last.campaign,
-        utm_content: new URLSearchParams(
-          window.location.search
-        ).get('utm_content') || '',
-        utm_term: new URLSearchParams(
-          window.location.search
-        ).get('utm_term') || '',
+        utm_content: params.get('utm_content') || '',
+        utm_term: params.get('utm_term') || '',
 
         landing_page: data.landing_page || '',
         referrer: data.referrer || '',
@@ -294,70 +306,69 @@
         addHiddenField(form, name, fields[name]);
       });
 
-      // Marca o início do envio. A página de obrigado
-      // usará esta marca para controlar a conversão.
-      safeSet(SUBMIT_KEY, '1');
-    });
+      // Marca o envio somente depois das validações
+      // e da preparação dos campos ocultos.
+      const saved = safeSet(SUBMIT_KEY, '1');
+
+      if (!saved) {
+        console.warn(
+          'Não foi possível registrar a marca do envio do formulário.'
+        );
+      }
+
+    }, false);
   }
 
   function prepareWhatsApp() {
-  // Captura cliques em links do WhatsApp e no tooltip flutuante.
-  // Não altera o link nem o texto da mensagem.
-  document.addEventListener('click', function (event) {
-    const target = event.target;
+    document.addEventListener('click', function (event) {
+      const target = event.target;
 
-    if (!(target instanceof Element)) return;
+      if (!(target instanceof Element)) return;
 
-    const whatsappLink = target.closest(
-      'a[href*="wa.me/"], a[href*="api.whatsapp.com/send"]'
-    );
+      const whatsappLink = target.closest(
+        'a[href*="wa.me/"], a[href*="api.whatsapp.com/send"]'
+      );
 
-    const tooltip = target.closest('#wa-tooltip');
+      const tooltip = target.closest('#wa-tooltip');
 
-    // Ignora cliques que não sejam relacionados ao WhatsApp.
-    if (!whatsappLink && !tooltip) return;
+      if (!whatsappLink && !tooltip) return;
 
-    const data = captureAttribution();
-    const first = data.first_touch || {};
-    const last = data.last_touch || {};
+      const data = captureAttribution();
+      const first = data.first_touch || {};
+      const last = data.last_touch || {};
 
-    window.dataLayer = window.dataLayer || [];
+      window.dataLayer = window.dataLayer || [];
 
-    window.dataLayer.push({
-      event: 'hs_whatsapp_click',
+      window.dataLayer.push({
+        event: 'hs_whatsapp_click',
 
-      canal_entrada: 'WhatsApp',
-      midia: data.media || 'Outro',
+        canal_entrada: 'WhatsApp',
+        midia: data.media || 'Outro',
 
-      // Última origem identificada.
-      utm_source: last.source || '',
-      utm_medium: last.medium || '',
-      utm_campaign: last.campaign || '',
+        utm_source: last.source || '',
+        utm_medium: last.medium || '',
+        utm_campaign: last.campaign || '',
 
-      // Primeiro contato.
-      primeiro_toque_source: first.source || '',
-      primeiro_toque_medium: first.medium || '',
-      primeiro_toque_campaign: first.campaign || '',
+        primeiro_toque_source: first.source || '',
+        primeiro_toque_medium: first.medium || '',
+        primeiro_toque_campaign: first.campaign || '',
 
-      // Identificadores de anúncios.
-      gclid: data.gclid || '',
-      gbraid: data.gbraid || '',
-      wbraid: data.wbraid || '',
+        gclid: data.gclid || '',
+        gbraid: data.gbraid || '',
+        wbraid: data.wbraid || '',
 
-      // Dados da navegação.
-      landing_page: data.landing_page || '',
-      page_location: window.location.href,
-      page_title: document.title,
-      referrer: document.referrer || '',
+        landing_page: data.landing_page || '',
+        page_location: window.location.href,
+        page_title: document.title,
+        referrer: document.referrer || '',
 
-      // Elemento clicado.
-      link_url: whatsappLink ? whatsappLink.href : '',
-      link_text: whatsappLink
-        ? (whatsappLink.innerText || '').trim()
-        : 'Tooltip WhatsApp'
-    });
-  }, true);
-}
+        link_url: whatsappLink ? whatsappLink.href : '',
+        link_text: whatsappLink
+          ? (whatsappLink.innerText || '').trim()
+          : 'Tooltip WhatsApp'
+      });
+    }, true);
+  }
 
   function init() {
     captureAttribution();
