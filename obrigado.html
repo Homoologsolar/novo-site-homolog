@@ -36,58 +36,50 @@
     <!-- End Google Tag Manager -->
 
     <!-- Evento de sucesso do formulário -->
-    <script>
-    (function () {
-      'use strict';
-
-      var SUBMIT_KEY = 'hs_form_submitted';
-      var SUCCESS_KEY = 'hs_form_success_sent';
-
-      try {
-        var submitted = sessionStorage.getItem(SUBMIT_KEY);
-        var alreadySent = sessionStorage.getItem(SUCCESS_KEY);
-
-        // Não dispara conversão sem uma tentativa válida de envio.
-        if (submitted !== '1' || alreadySent === '1') {
-          return;
-        }
-
-        var savedEmail = sessionStorage.getItem('userEmail');
-        var savedPhone = sessionStorage.getItem('userPhone');
-
-        var userData = {};
-
-        if (savedEmail) {
-          userData.email = savedEmail.trim().toLowerCase();
-        }
-
-        if (savedPhone) {
-          userData.phone_number = savedPhone.replace(/[^\d+]/g, '');
-        }
-
-        window.dataLayer = window.dataLayer || [];
-
-        // Marca o evento como enviado para evitar duplicidade.
-        sessionStorage.setItem(SUCCESS_KEY, '1');
-
-        window.dataLayer.push({
-          event: 'hs_form_success',
-          user_data: userData
-        });
-
-        // Limpa os dados temporários do envio.
-        sessionStorage.removeItem(SUBMIT_KEY);
-        sessionStorage.removeItem('userEmail');
-        sessionStorage.removeItem('userPhone');
-
-      } catch (error) {
-        console.warn(
-          'Erro ao processar a conversão do formulário:',
-          error
-        );
-      }
-    })();
-    </script>
+   <script>
+        (function () {
+          'use strict';
+        
+          var SUBMIT_KEY = 'hs_form_submitted';
+        
+          try {
+            if (sessionStorage.getItem(SUBMIT_KEY) !== '1') {
+              console.warn('Homolog Solar: envio não confirmado.');
+              return;
+            }
+        
+            var savedEmail = sessionStorage.getItem('userEmail');
+            var savedPhone = sessionStorage.getItem('userPhone');
+        
+            var userData = {};
+        
+            if (savedEmail) {
+              userData.email = savedEmail.trim().toLowerCase();
+            }
+        
+            if (savedPhone) {
+              userData.phone_number = savedPhone.replace(/[^\d+]/g, '');
+            }
+        
+            window.dataLayer = window.dataLayer || [];
+        
+            window.dataLayer.push({
+              event: 'hs_form_success',
+              user_data: userData
+            });
+        
+            console.log('Homolog Solar: conversão enviada ao dataLayer.');
+        
+            sessionStorage.removeItem(SUBMIT_KEY);
+            sessionStorage.removeItem('hs_form_success_sent');
+            sessionStorage.removeItem('userEmail');
+            sessionStorage.removeItem('userPhone');
+        
+          } catch (error) {
+            console.error('Erro ao registrar conversão:', error);
+          }
+        })();
+        </script>
 
 </head>
 <body>
