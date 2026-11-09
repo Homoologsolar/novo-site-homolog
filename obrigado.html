@@ -1,12 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>Obrigado pelo Contato | Homolog Solar</title>
     <meta name="description" content="Formulário enviado com sucesso. Agradecemos seu interesse em nossos serviços de homologação fotovoltaica. Entraremos em contato em breve.">
-    <meta name="robots" content="noindex, nofollow"> 
+    <meta name="robots" content="noindex, nofollow">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="styles/styles.css">
@@ -16,80 +17,99 @@
     <link rel="shortcut icon" href="src/imagens/homolog-icon.webp" type="image/x-icon">
     <link rel="apple-touch-icon" href="src/imagens/homolog-icon.webp">
 
-    <!-- Google tag (gtag.js) -->
+    <!-- Google tag -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16701112383"></script>
-    
-    
-    <script>
-    (function () {
-        'use strict';
-    
-        try {
-            if (sessionStorage.getItem('hs_form_submitted') !== '1') {
-                return;
-            }
-    
-            var savedEmail = sessionStorage.getItem('userEmail');
-            var savedPhone = sessionStorage.getItem('userPhone');
-    
-            var userData = {};
-    
-            if (savedEmail) {
-                userData.email = savedEmail.trim().toLowerCase();
-            }
-    
-            if (savedPhone) {
-                userData.phone_number = savedPhone.replace(/[^\d+]/g, '');
-            }
-    
-            window.dataLayer = window.dataLayer || [];
-    
-            // Envia os dados antes do evento de conversão.
-            window.dataLayer.push({
-                user_data: userData,
-                event: 'hs_form_success'
-            });
-    
-            // Limpa os dados temporários após o envio à camada de dados.
-            sessionStorage.removeItem('hs_form_submitted');
-            sessionStorage.removeItem('userEmail');
-            sessionStorage.removeItem('userPhone');
-    
-        } catch (error) {
-            console.warn('Erro ao processar dados da conversão:', error);
-        }
-    })();
-    </script>
-
 
     <!-- Google Tag Manager -->
     <script>
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    (function(w,d,s,l,i){
+      w[l]=w[l]||[];
+      w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+      var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),
+      dl=l!='dataLayer'?'&l='+l:'';
+      j.async=true;
+      j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+      f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-5B5RZ32L');
     </script>
     <!-- End Google Tag Manager -->
+
+    <!-- Evento de sucesso do formulário -->
+    <script>
+    (function () {
+      'use strict';
+
+      var SUBMIT_KEY = 'hs_form_submitted';
+      var SUCCESS_KEY = 'hs_form_success_sent';
+
+      try {
+        var submitted = sessionStorage.getItem(SUBMIT_KEY);
+        var alreadySent = sessionStorage.getItem(SUCCESS_KEY);
+
+        // Não dispara conversão sem uma tentativa válida de envio.
+        if (submitted !== '1' || alreadySent === '1') {
+          return;
+        }
+
+        var savedEmail = sessionStorage.getItem('userEmail');
+        var savedPhone = sessionStorage.getItem('userPhone');
+
+        var userData = {};
+
+        if (savedEmail) {
+          userData.email = savedEmail.trim().toLowerCase();
+        }
+
+        if (savedPhone) {
+          userData.phone_number = savedPhone.replace(/[^\d+]/g, '');
+        }
+
+        window.dataLayer = window.dataLayer || [];
+
+        // Marca o evento como enviado para evitar duplicidade.
+        sessionStorage.setItem(SUCCESS_KEY, '1');
+
+        window.dataLayer.push({
+          event: 'hs_form_success',
+          user_data: userData
+        });
+
+        // Limpa os dados temporários do envio.
+        sessionStorage.removeItem(SUBMIT_KEY);
+        sessionStorage.removeItem('userEmail');
+        sessionStorage.removeItem('userPhone');
+
+      } catch (error) {
+        console.warn(
+          'Erro ao processar a conversão do formulário:',
+          error
+        );
+      }
+    })();
+    </script>
+
 </head>
 <body>
+
     <!-- Google Tag Manager (noscript) -->
     <noscript>
       <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5B5RZ32L"
       height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
-    
+
     <header class="shadow-sm fixed-top">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
                 <img src="src/imagens/homolog-icon.webp" alt="Logo da Homolog Solar" title="Homolog Solar" class="navbar-brand" style="width: 50px; height: 50px; border-radius: 50%;" loading="lazy">
                 <a class="navbar-brand" href="index.html">Homolog <span>Solar</span></a>
-                
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
@@ -114,29 +134,30 @@
     </header>
 
     <main id="obrigado-section" class="container text-center d-flex flex-column align-items-center justify-content-center" style="color:black; min-height: 80vh; padding-top: 50px; padding-bottom: 50px;">
-            
-            <i class="bi bi-check-circle-fill" style="font-size: 5rem; color: var(--yellow-base); margin-bottom: 1.5rem;"></i>
-            
-            <h1 class="display-4"><span>Obrigado!</span></h1>
-            
-            <p class="lead" style="max-width: 600px;">
-                Suas informações foram recebidas com sucesso.
-            </p>
-            <p style="max-width: 600px;">
-                Nossa equipe de especialistas analisará seus dados e entrará em contato com você pelo <strong>telefone (WhatsApp)</strong> informado em até <strong>24 horas úteis</strong> para dar o próximo passo.
-            </p>
 
+        <i class="bi bi-check-circle-fill" style="font-size: 5rem; color: var(--yellow-base); margin-bottom: 1.5rem;"></i>
 
-            <a href="index.html" class="btn btn-warning">Voltar para a Página Inicial</a>
+        <h1 class="display-4"><span>Obrigado!</span></h1>
+
+        <p class="lead" style="max-width: 600px;">
+            Suas informações foram recebidas com sucesso.
+        </p>
+
+        <p style="max-width: 600px;">
+            Nossa equipe de especialistas analisará seus dados e entrará em contato com você pelo <strong>telefone (WhatsApp)</strong> informado em até <strong>24 horas úteis</strong> para dar o próximo passo.
+        </p>
+
+        <a href="index.html" class="btn btn-warning">Voltar para a Página Inicial</a>
     </main>
 
     <footer class="py-4">
         <div class="container-fluid d-flex justify-content-around">
-            <div class="d-flex justify-content-around flex-wrap gap-5 " >
+            <div class="d-flex justify-content-around flex-wrap gap-5">
                 <div class="p-3 flex-fill me-5" style="max-width: 400px;">
                     <h5>Homolog Solar</h5>
                     <p>simplificando a homologação de energia solar para um futuro mais verde e eficiente</p>
                 </div>
+
                 <div class="p-3 d-flex flex-column me-5" style="width: 200px;">
                     <h5>Links Úteis</h5>
                     <a href="index.html#beneficios">Benefícios</a>
@@ -145,21 +166,23 @@
                     <a href="index.html#FAQ">FAQ</a>
                     <a href="https://wa.me/558189878175?text=Ola,%20vim%20pelo%20Site." target="_blank" rel="noopener noreferrer">Entre em Contato</a>
                 </div>
-                <div class="p-3 flex-fill " >
+
+                <div class="p-3 flex-fill">
                     <h5>Contato</h5>
                     <p>
                         <a href="mailto:contato@homologsolar.com"><i class="bi bi-envelope"></i> homologsolar@gmail.com</a><br>
                         <a href="tel:+558189878175"><i class="bi bi-telephone"></i> (81) 9 8987-8175</a>
                     </p>
+
                     <div id="social" class="d-flex justify-content-start gap-2">
                         <a href="https://www.linkedin.com/company/homologsolar/" class="bi bi-linkedin" target="_blank"></a>
-                        <a href="https://www.instagram.com/homolog_solar/" class=" bi bi-instagram" target="_blank"></a>
+                        <a href="https://www.instagram.com/homolog_solar/" class="bi bi-instagram" target="_blank"></a>
                         <a href="https://wa.me/558189878175?text=Ola,%20vim%20pelo%20Site." class="bi bi-whatsapp" target="_blank" rel="noopener noreferrer"></a>
+                    </div>
                 </div>
             </div>
         </div>
     </footer>
-
 
     <div id="whatsapp-float">
         <div class="wa-tooltip" id="wa-tooltip">Entre em contato</div>
@@ -169,5 +192,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous" defer></script>
+
 </body>
 </html>
